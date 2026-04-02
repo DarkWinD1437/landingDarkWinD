@@ -31,10 +31,10 @@ const WORK_PROJECTS = [
 
 export function Work() {
     return (
-        <section className="py-12 px-8">
-                <div className="flex justify-between gap-4 mb-8">
+        <section className="py-12 px-4 sm:px-6 md:px-8">
+                <div className="flex flex-col md:flex-row justify-between gap-4 mb-8 items-start md:items-center">
                     <div className="space-y-4">
-                    <TextStaggerInview animation="bottom" as="h2" className="text-5xl md:text-6xl font-extrabold">Casos de estudio</TextStaggerInview>
+                    <TextStaggerInview animation="bottom" as="h2" className="text-4xl sm:text-5xl md:text-6xl font-extrabold">Casos de estudio</TextStaggerInview>
                     <p className="text-muted-foreground max-w-[45ch] text-sm">
                         Diseñamos y construimos productos digitales que combinan claridad de marca, UX centrada en el usuario e ingeniería frontend rápida.
                     </p>
@@ -52,7 +52,7 @@ export function Work() {
                     index={index}
                     incrementY={10}
                     incrementZ={10}
-                    className="md:w-4/5 mx-auto bg-card border"
+                    className="w-full md:w-4/5 mx-auto bg-card border"
                   >
 
                   <div className="max-h-[80vh] aspect-video">
@@ -63,7 +63,7 @@ export function Work() {
                   />
                   </div>
                       <div className="flex flex-wrap items-center justify-between gap-4 p-6">
-                      <h2 className="text-4xl font-bold">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
                         {project.title}
                       </h2>
                       <div className="flex flex-wrap gap-1">

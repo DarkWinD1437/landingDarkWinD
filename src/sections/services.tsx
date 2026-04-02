@@ -50,7 +50,7 @@ export function Services() {
           <CardSticky
             key={service.id}
             index={index}
-            className="min-h-[50vh] py-8 px-12 flex gap-6 justify-between flex-wrap even:border bg-card odd:bg-muted"
+            className="min-h-[50vh] p-4 sm:p-8 md:px-12 flex flex-col md:flex-row gap-6 justify-between flex-wrap even:border bg-card odd:bg-muted"
             incrementY={80}
             incrementZ={0}
           >
@@ -58,12 +58,12 @@ export function Services() {
               <sup className="font-black text-muted-foreground">
                 {index + 1}
               </sup>
-              <h3 className="text-5xl max-w-[13ch] font-bold">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl max-w-[13ch] font-bold">
                 {service.title}
               </h3>
             </div>
 
-            <p className="text-xl md:basis-1/2">{service.description}</p>
+            <p className="text-lg md:text-xl md:basis-1/2">{service.description}</p>
           </CardSticky>
         ))}
       </CardsStackContainer>

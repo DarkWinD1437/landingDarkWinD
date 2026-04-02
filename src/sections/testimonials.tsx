@@ -47,7 +47,7 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
     return (
-        <section className="py-12 px-6">
+        <section className="py-12 px-4 sm:px-6">
             <div className="text-center mx-auto max-w-3xl flex flex-col items-center space-y-4">
         <TextStaggerInview animation="bottom" as={'h2'} className="text-4xl font-bold">Lo que dicen nuestros clientes</TextStaggerInview>
         <p className="text-muted-foreground max-w-[38ch]">
@@ -55,9 +55,9 @@ export function Testimonials() {
         </p>
       </div>
 
-      <ContainerScrollRotatedCards className="container h-[300vh] ">
+      <ContainerScrollRotatedCards className="container h-[200vh] md:h-[300vh] ">
         <div className="sticky overflow-hidden left-0 top-0 h-svh w-full py-12">
-          <CardsContainer className="mx-auto size-full h-[450px] w-[350px]">
+          <CardsContainer className="mx-auto size-full h-[450px] w-full sm:w-[350px]">
             {TESTIMONIALS.map((testimonial, index) => (
               <CardTransformed
                 arrayLength={TESTIMONIALS.length}
@@ -76,7 +76,7 @@ export function Testimonials() {
                   role="article"
                   aria-labelledby={`card-${testimonial.id}-title`}
                   aria-describedby={`card-${testimonial.id}-content`}
-                  className="h-[450px] w-[350px] justify-center items-center bg-card/50 border"
+                  className="h-[450px] w-full sm:w-[350px] justify-center items-center bg-card/50 border"
                 >
                   <TestimonialRating className="text-primary" />
                   <div className="relative text-center mx-auto w-4/5 text-lg">

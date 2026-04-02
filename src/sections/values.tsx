@@ -16,7 +16,7 @@ export function Values() {
   const variants = ANIMATION_VARIANTS['right'];
   return (
     <section id="habilidades" className="overflow-hidden bg-background/90 backdrop-blur-sm">
-      <div className="pt-12 pb-16 px-8 lg:grid lg:grid-cols-3 space-y-8">
+      <div className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-3 space-y-8">
         <div className="space-y-4">
           <TextStaggerInview
             as="h2"
@@ -31,7 +31,7 @@ export function Values() {
         </div>
         <ContainerStagger
           className="
-            col-span-2 flex flex-col md:grid grid-cols-2 md:grid-rows-[50px_1fr_50px_1fr_50px] gap-6
+            col-span-2 flex flex-col md:grid md:grid-cols-2 md:grid-rows-[50px_1fr_50px_1fr_50px] gap-6
             *:row-span-2
             [&>*:nth-child(2)]:row-start-2
           "

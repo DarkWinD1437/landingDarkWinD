@@ -14,7 +14,7 @@ export function MobileNav() {
                     </Button>
                 </PopoverTrigger>
 
-                <PopoverContent side="bottom" className="w-60 mr-6">
+                <PopoverContent side="bottom" className="w-[calc(100vw-2rem)] mr-4 sm:w-60 sm:mr-6">
                     <ul className="flex flex-col items-start gap-4">
                         {
                             NAV_LINKS.map((link) => (
