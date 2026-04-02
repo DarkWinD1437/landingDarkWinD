@@ -5,6 +5,7 @@ import { About } from './sections/about'
 import { Values } from './sections/values'
 import { Team } from './sections/team'
 import { Process } from './sections/process'
+import { ContactFormSection } from './sections/contact'
 import { BackgroundController } from './components/background-controller'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Values />
           <Process />
           <Team />
+          <ContactFormSection />
         </main>
         <Footer />
       </div>
