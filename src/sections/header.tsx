@@ -1,7 +1,6 @@
 import { DesktopNav } from "@/components/desktop-nav";
-import { Logo } from "@/components/logo";
 import { MobileNav } from "@/components/mobile-nav";
-
+import logo from "@/assets/favicon.ico";
 
 export function Header() {
     return (
@@ -11,9 +10,9 @@ export function Header() {
         <div className="container flex h-16 justify-between items-center gap-4">
           <a className="flex-grow-[1] inline-flex items-center gap-1" href="/">
             <div className="size-6">
-                <Logo className="size-full" />
+                <img src={logo} alt="DarkWinD Logo" className="size-full" />
                 </div>
-            <span className="inline-block text-lg font-bold">Darwin Vigabriel</span>
+            <span className="inline-block text-lg font-bold">DarkWinD</span>
           </a>
 
         <DesktopNav />
