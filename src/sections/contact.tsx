@@ -43,10 +43,37 @@ export function ContactFormSection() {
     message: "",
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Form submitted:", formData);
-    // Aquí puedes agregar la lógica para enviar los datos
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/vigabriel.darwin@hotmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "Nuevo mensaje de contacto desde tu Portafolio",
+          ...formData,
+        }),
+      });
+
+      if (response.ok) {
+        alert("¡Mensaje enviado con éxito! Te contactaré pronto.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        alert("Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -253,13 +280,16 @@ export function ContactFormSection() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg"
+                  disabled={isSubmitting}
+                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Enviar Mensaje
-                  <Send
-                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
+                  {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
+                  {!isSubmitting && (
+                    <Send
+                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
+                  )}
                 </Button>
               </motion.div>
             </motion.div>
