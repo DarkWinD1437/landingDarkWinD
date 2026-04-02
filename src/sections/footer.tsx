@@ -23,19 +23,19 @@ const SOCIAL_LINKS = [
 ]
 const LINKS = [
     {
-        label: 'Home',
+        label: 'Inicio',
         href: '/',
     },
     {
-        label: 'About',
+        label: 'Nosotros',
         href: '/',
     },
     {
-        label: 'Services',
+        label: 'Servicios',
         href: '/',
     },
     {
-        label: 'Pricing',
+        label: 'Precios',
         href: '/',
     }
 ]
@@ -47,7 +47,7 @@ export function Footer() {
                     <div className="size-6">
                         <Logo className="size-full" />
                     </div>
-                    <span className="inline-block text-lg font-bold">Veo</span>
+                    <span className="inline-block text-lg font-bold">DarkWinD</span>
                 </div>
                 <ul className="flex items-center gap-2">
                     {
@@ -80,19 +80,19 @@ export function Footer() {
                  <ul className="flex py-4 justify-self-start mt-2 gap-4">
                     <li>
                         <a className="text-foreground/30 hover:text-foreground font-medium text-sm" href={'/'}>
-                            Privacy
+                            Privacidad
                         </a>
                     </li>
                     <li>
                         <a className="text-foreground/30 hover:text-foreground font-medium text-sm" href={'/'}>
-                            Terms
+                            Términos
                         </a>
                     </li>
                 </ul>
             </div>
 
             <small className="text-muted-foreground">
-                &copy; {new Date().getFullYear()} Veo. created by <a href="https://x.com/lbnm_yussef" className="text-foreground font-medium">@youcefBnm</a>
+                &copy; {new Date().getFullYear()} DarkWinD. Todos los derechos reservados.
             </small>
         </footer>
     )
