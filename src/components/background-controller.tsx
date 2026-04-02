@@ -7,10 +7,10 @@ export function BackgroundController() {
       style={{ zIndex: 0 }}
       aria-hidden="true"
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none">
         <WebcamPixelGrid
-          gridCols={60}
-          gridRows={40}
+          gridCols={40}
+          gridRows={30}
           maxElevation={50}
           motionSensitivity={0.25}
           elevationSmoothing={0.2}

@@ -174,9 +174,14 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
       return;
     }
 
-    // Set processing canvas size to grid dimensions
-    processingCanvas.width = gridCols;
-    processingCanvas.height = gridRows;
+    // Set processing canvas size to grid dimensions if changed
+    if (
+      processingCanvas.width !== gridCols ||
+      processingCanvas.height !== gridRows
+    ) {
+      processingCanvas.width = gridCols;
+      processingCanvas.height = gridRows;
+    }
 
     // Draw video to processing canvas (scaled down)
     procCtx.save();
@@ -267,9 +272,15 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
     const displayWidth = displayCanvas.clientWidth;
     const displayHeight = displayCanvas.clientHeight;
 
-    displayCanvas.width = displayWidth * dpr;
-    displayCanvas.height = displayHeight * dpr;
-    dispCtx.scale(dpr, dpr);
+    // Solo actualizar el tamaño del canvas si cambió, esto detiene el lag extremo
+    if (
+      displayCanvas.width !== displayWidth * dpr ||
+      displayCanvas.height !== displayHeight * dpr
+    ) {
+      displayCanvas.width = displayWidth * dpr;
+      displayCanvas.height = displayHeight * dpr;
+      dispCtx.scale(dpr, dpr);
+    }
 
     // Clear canvas
     dispCtx.fillStyle = backgroundColor;
