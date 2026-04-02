@@ -13,7 +13,7 @@ export function Header() {
             <div className="size-6">
                 <Logo className="size-full" />
                 </div>
-            <span className="inline-block text-lg font-bold">DarkWinD</span>
+            <span className="inline-block text-lg font-bold">Darwin Vigabriel</span>
           </a>
 
         <DesktopNav />

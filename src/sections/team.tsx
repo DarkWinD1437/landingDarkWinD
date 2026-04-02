@@ -1,97 +1,42 @@
-import { ScrollAnimation, ScrollScale, ScrollTranslateX, ScrollTranslateY } from "@/components/systaliko-ui/blocks/scroll-animation";
-import { cn } from "@/lib/utils";
-import React from "react";
+import { ScrollAnimation, ScrollScale, ScrollTranslateY } from '@/components/systaliko-ui/blocks/scroll-animation';
+import { data } from '@/data/data';
+import { GraduationCapIcon } from 'lucide-react';
 
-interface TeamMember {
-    avatar: string;
-    name: string;
-    role: string
-}
+export function Team() {
+  return (
+    <section id="educacion">
+      <ScrollAnimation>
+        <ScrollTranslateY className="overflow-hidden min-h-svh flex flex-col justify-center items-center gap-12 px-8 py-16">
+          <ScrollScale
+            inputRange={[0, 0.5]}
+            scaleRange={[1.3, 1]}
+            className="w-10/12 flex flex-col justify-center text-center items-center mx-auto origin-center"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold">Formación académica</h2>
+          </ScrollScale>
 
-const TEAM_MEMBERS: TeamMember[] = [
-    {
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww',
-        name: 'Magdalina',
-        role: 'CEO'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVvcGxlfGVufDB8fDB8fHww',
-        name: 'Jamie',
-        role: 'CTO'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D',
-        name: 'Emilio',
-        role: 'CTO'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D',
-        name: 'Samia',
-        role: 'COO'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1522556189639-b150ed9c4330?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D',
-        name: 'Alex',
-        role: 'Ingeniero'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDl8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D',
-        name: 'Ema',
-        role: 'Jefa de Producto'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D',
-        name: 'Carlos',
-        role: 'Ingeniero'
-    },
-    {
-        avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTZ8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D',
-        name: 'Campos',
-        role: 'Ingeniero'
-    }
-]
-
-export function TeamCard ({member, className, ...props}:React.ComponentProps<'div'> & {member: TeamMember}) {
-    return (
-        <div className={cn('space-y-6', className)} {...props}>
-            <img
-                src={member.avatar}
-                alt={member.name}
-                className="aspect-square w-full"
-            />
-
-            <div className="space-y-1 pb-4 px-4">
-                <h3 className="text-xl font-medium">{member.name}</h3>
-                <h4>{member.role}</h4>
-            </div>
-        </div>
-    )
-}
-
-export function Team () {
-return (
-        <section>
-            <ScrollAnimation>
-                <ScrollTranslateY className="overflow-hidden min-h-svh flex flex-col justify-center items-center gap-6">
-                    <div className="max-w-full">
-                    <ScrollTranslateX xRange={["-200%", "0%"]} inputRange={[0.4, 0.9]} className="origin-bottom flex flex-nowrap gap-4">
-                        {TEAM_MEMBERS.map((member, index) => (
-                            <TeamCard className="min-w-[48vw] md:min-w-[20vw] bg-card border" key={index} member={member} />
-                        ))}
-                    </ScrollTranslateX>
-                    </div>
-                    <ScrollScale inputRange={[0, 0.5]} scaleRange={[1.4, 1]} className="w-10/12 flex flex-col justify-center text-center items-center mx-auto origin-center">
-                        <h2 className="text-4xl md:text-5xl font-bold">Equipo compacto de estrategas</h2>
-                    </ScrollScale>
-                    <div className="max-w-full">
-                    <ScrollTranslateX inputRange={[0.4, 0.9]} xRange={["100%", "-50%"]} className="flex flex-nowrap gap-4">
-                        {TEAM_MEMBERS.map((member, index) => (
-                            <TeamCard className="min-w-[48vw] md:min-w-[20vw] bg-card border" key={index} member={member} />
-                        ))}
-                    </ScrollTranslateX>
-                    </div>
-                </ScrollTranslateY>
-            </ScrollAnimation>
-        </section>
-    )
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+            {data.education.map((edu) => (
+              <div
+                key={edu.id}
+                className="bg-card border rounded-xl p-6 space-y-4 shadow"
+              >
+                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <GraduationCapIcon className="size-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                    {edu.type}
+                  </span>
+                  <h3 className="text-xl font-bold">{edu.title}</h3>
+                  <p className="text-muted-foreground font-medium">{edu.institution}</p>
+                  <p className="text-sm text-muted-foreground">{edu.year}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollTranslateY>
+      </ScrollAnimation>
+    </section>
+  );
 }

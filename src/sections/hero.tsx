@@ -2,39 +2,52 @@ import { ContainerStagger } from '@/components/systaliko-ui/blocks/container-sta
 import { motion, MotionConfig } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { ANIMATION_VARIANTS } from '@/components/systaliko-ui/utils/animation-variants';
+import { data } from '@/data/data';
+import perfilImg from '@/assets/perfil.jpg';
 
 export function Hero() {
   const animationVariants = ANIMATION_VARIANTS['bottom'];
   return (
-    <section className="min-h-[90vh] w-full relative place-content-center">
+    <section id="inicio" className="min-h-[90vh] w-full relative place-content-center">
       <ContainerStagger className="flex flex-col text-center items-center gap-6 p-6">
         <MotionConfig transition={{ duration: 0.4, ease: 'easeOut' }}>
-          <motion.div
-            className="text-5xl font-extralight"
-            variants={animationVariants}
-          >
+          <motion.div variants={animationVariants}>
+            <img
+              src={perfilImg}
+              alt={data.fullName}
+              className="size-28 md:size-36 rounded-full object-cover object-top border-4 border-primary/30 shadow-lg"
+            />
           </motion.div>
 
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl md:max-w-4/5 font-bold"
+          <motion.div
+            className="space-y-1"
             variants={animationVariants}
           >
-            Construimos marcas y productos que la gente recuerda
-          </motion.h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+              {data.name}
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground font-light tracking-wide">
+              {data.title}
+            </p>
+          </motion.div>
+
           <motion.p
             variants={animationVariants}
-            className="leading-normal tracking-tight text-muted-foreground max-w-[45ch]"
+            className="text-xl md:text-2xl font-medium italic text-primary max-w-[32ch]"
           >
-            Creando experiencias digitales excepcionales a través de soluciones de diseño
-            innovadoras. Del concepto a la creación, transformamos tu visión en realidad.
+            "{data.heroPhrase}"
           </motion.p>
 
           <motion.div
-            className="flex flex-wrap gap-2"
+            className="flex flex-wrap justify-center gap-2"
             variants={animationVariants}
           >
-            <Button>Inicia tu proyecto</Button>
-            <Button variant="secondary">Ver nuestro trabajo</Button>
+            <Button asChild>
+              <a href="#experiencia">Ver mi trabajo</a>
+            </Button>
+            <Button variant="secondary" asChild>
+              <a href="#contacto">Contactarme</a>
+            </Button>
           </motion.div>
         </MotionConfig>
       </ContainerStagger>

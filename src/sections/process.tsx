@@ -2,42 +2,12 @@ import {
   ScrollAnimation,
   ScrollScale,
 } from '@/components/systaliko-ui/blocks/scroll-animation';
-import { Button } from '@/components/ui/button';
-
-const PROCESS_PHASES = [
-  {
-    id: 'phase-1',
-    title: 'Descubrir',
-    duration: 'Semana 1',
-    description:
-      'Nuestro viaje comienza con una inmersión profunda en tu visión. En la fase de Descubrimiento, entablamos conversaciones significativas para comprender tu identidad de marca, tus objetivos y la esencia que quieres transmitir. Esta fase establece las bases de todo lo que sigue.',
-  },
-  {
-    id: 'phase-2',
-    title: 'Diseñar',
-    duration: 'Semanas 2-4',
-    description:
-      'En la fase de Diseño, trabajamos juntos para crear una estrategia de marca integral que se alinee con tus objetivos y visión. Esto incluye definir tu voz de marca, mensajería e identidad visual, así como desarrollar una guía de estilo de marca.',
-  },
-  {
-    id: 'phase-3',
-    title: 'Construir',
-    duration: 'Semanas 5-8',
-    description:
-      'En la fase de Construcción, desarrollamos la presencia digital de tu marca, incluyendo tu sitio web, cuentas de redes sociales y materiales de marketing. Esto incluye crear una estrategia de contenido, desarrollar una experiencia de usuario y optimizar tu sitio web para motores de búsqueda.',
-  },
-  {
-    id: 'phase-4',
-    title: 'Crecer',
-    duration: 'Continuo',
-    description:
-      'En la fase de Crecimiento, continuamos construyendo sobre la presencia digital de tu marca, monitoreando y ajustando tu estrategia según sea necesario. Esto incluye recopilar retroalimentación, analizar datos y tomar decisiones basadas en datos para mejorar tu marca con el tiempo.',
-  },
-];
+import { data } from '@/data/data';
+import { BriefcaseIcon } from 'lucide-react';
 
 export function Process() {
   return (
-    <section className="relative py-12 px-8">
+    <section id="experiencia" className="relative py-12 px-8">
       <div className="container mx-auto md:grid md:grid-cols-2 md:gap-12 justify-between">
         <div className="relative md:sticky md:top-0 md:left-0 h-fit max-h-vh py-6">
           <ScrollAnimation
@@ -50,22 +20,30 @@ export function Process() {
               className="origin-left py-6 place-content-center"
             >
               <h2 className="text-6xl md:text-7xl font-bold">
-                Cómo <br /> trabajamos
+                Experiencia <br /> laboral
               </h2>
             </ScrollScale>
-            <Button variant={'secondary'}>Inicia tu proyecto</Button>
+            <p className="text-muted-foreground leading-relaxed">
+              Mi trayectoria profesional en desarrollo de software, docencia y consultoría TI.
+            </p>
           </ScrollAnimation>
         </div>
         <div className="flex flex-col gap-12">
-          {PROCESS_PHASES.map((phase) => (
-            <div className="flex flex-col gap-6" key={phase.id}>
-              <div className="flex ">
-                <h3 className="text-4xl font-bold mr-2">{phase.title}</h3>
-                <span className="font-black text-muted-foreground">
-                  {phase.duration}
-                </span>
+          {data.experience.map((exp) => (
+            <div className="flex flex-col gap-4 py-6 border-l-2 border-primary/30 pl-6" key={exp.id}>
+              <div className="flex items-start gap-3">
+                <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <BriefcaseIcon className="size-5 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-bold">{exp.role}</h3>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-semibold text-primary">{exp.company}</span>
+                    <span className="text-sm text-muted-foreground font-medium">{exp.period}</span>
+                  </div>
+                </div>
               </div>
-              <p className="">{phase.description}</p>
+              <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
             </div>
           ))}
         </div>

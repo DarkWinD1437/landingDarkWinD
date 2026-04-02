@@ -1,18 +1,22 @@
 export const NAV_LINKS = [
     {
         label: 'Inicio',
-        href: '/',
+        href: '#inicio',
     },
     {
-        label: 'Nosotros',
-        href: '/',
+        label: 'Sobre mí',
+        href: '#sobre-mi',
     },
     {
-        label: 'Servicios',
-        href: '/',
+        label: 'Habilidades',
+        href: '#habilidades',
     },
     {
-        label: 'Precios',
-        href: '/',
+        label: 'Experiencia',
+        href: '#experiencia',
+    },
+    {
+        label: 'Contacto',
+        href: '#contacto',
     }
 ]
