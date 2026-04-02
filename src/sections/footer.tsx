@@ -23,7 +23,7 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
     return (
-        <footer id="contacto" className="py-12 px-8 border-t">
+        <footer id="contacto" className="py-12 px-8 border-t bg-background/90 backdrop-blur-sm">
             <div className="flex w-full justify-between items-center gap-4 flex-wrap">
                 <div className="inline-flex items-center gap-2">
                     <div className="size-6">

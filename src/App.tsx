@@ -5,19 +5,23 @@ import { About } from './sections/about'
 import { Values } from './sections/values'
 import { Team } from './sections/team'
 import { Process } from './sections/process'
+import { BackgroundController } from './components/background-controller'
 
 function App() {
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Values />
-        <Process />
-        <Team />
-      </main>
-      <Footer />
+      <BackgroundController />
+      <div className="relative z-10">
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Values />
+          <Process />
+          <Team />
+        </main>
+        <Footer />
+      </div>
     </>
   )
 }

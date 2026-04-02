@@ -4,7 +4,7 @@ import { data } from '@/data/data';
 
 export function About() {
   return (
-    <section id="sobre-mi" className="py-16 px-8 min-h-screen place-content-center">
+    <section id="sobre-mi" className="py-16 px-8 min-h-screen place-content-center bg-background/90 backdrop-blur-sm">
       <div className="flex flex-col space-y-6 justify-center items-center max-w-3xl mx-auto text-center">
         <Badge className="py-2 px-4" variant="secondary">
           Sobre mí ✨

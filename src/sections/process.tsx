@@ -7,7 +7,7 @@ import { BriefcaseIcon } from 'lucide-react';
 
 export function Process() {
   return (
-    <section id="experiencia" className="relative py-12 px-8">
+    <section id="experiencia" className="relative py-12 px-8 bg-background/90 backdrop-blur-sm">
       <div className="container mx-auto md:grid md:grid-cols-2 md:gap-12 justify-between">
         <div className="relative md:sticky md:top-0 md:left-0 h-fit max-h-vh py-6">
           <ScrollAnimation

@@ -4,7 +4,7 @@ import { GraduationCapIcon } from 'lucide-react';
 
 export function Team() {
   return (
-    <section id="educacion">
+    <section id="educacion" className="bg-background/90 backdrop-blur-sm">
       <ScrollAnimation>
         <ScrollTranslateY className="overflow-hidden min-h-svh flex flex-col justify-center items-center gap-12 px-8 py-16">
           <ScrollScale

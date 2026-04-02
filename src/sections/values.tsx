@@ -15,7 +15,7 @@ const CATEGORY_ICONS = {
 export function Values() {
   const variants = ANIMATION_VARIANTS['right'];
   return (
-    <section id="habilidades" className="overflow-hidden">
+    <section id="habilidades" className="overflow-hidden bg-background/90 backdrop-blur-sm">
       <div className="pt-12 pb-16 px-8 lg:grid lg:grid-cols-3 space-y-8">
         <div className="space-y-4">
           <TextStaggerInview
