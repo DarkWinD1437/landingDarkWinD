@@ -1,6 +1,6 @@
 import GithubIcon from '@/components/icons/github-icon';
 import LinkedinIcon from '@/components/icons/linkedin-icon';
-import { Logo } from '@/components/logo';
+import logo from '@/assets/favicon.ico';
 import { Button } from '@/components/ui/button';
 import { data } from '@/data/data';
 import { NAV_LINKS } from '@/data/constants';
@@ -27,9 +27,9 @@ export function Footer() {
             <div className="flex w-full justify-between items-center gap-4 flex-wrap">
                 <div className="inline-flex items-center gap-2">
                     <div className="size-6">
-                        <Logo className="size-full" />
+                        <img src={logo} alt="DarkWinD Logo" className="size-full" />
                     </div>
-                    <span className="inline-block text-lg font-bold">{data.name}</span>
+                    <span className="inline-block text-lg font-bold">DarkWinD</span>
                 </div>
                 <ul className="flex items-center gap-2">
                     <li>
