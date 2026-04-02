@@ -19,7 +19,7 @@ export function Process() {
               scaleRange={[1, 1.8]}
               className="origin-left py-6 place-content-center"
             >
-              <h2 className="text-6xl md:text-7xl font-bold">
+              <h2 className="text-6xl md:text-6xl font-bold">
                 Experiencia <br /> laboral
               </h2>
             </ScrollScale>
