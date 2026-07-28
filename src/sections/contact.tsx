@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { motion, type Variants } from "framer-motion";
 import { Mail, MessageSquare, Phone, Send } from "lucide-react";
 import { useState } from "react";
+import { Eyebrow } from "@/components/dossier/eyebrow";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -88,8 +89,8 @@ export function ContactFormSection() {
   return (
     <section id="contacto" className="relative overflow-hidden bg-background px-4 sm:px-8 md:py-28 py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-6 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-foreground/[0.035] blur-[140px]" />
-        <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-primary/3 blur-[130px]" />
+        <div className="absolute left-1/2 top-6 h-[520px] w-[520px] -translate-x-1/2 bg-accent/5 blur-[140px]" />
+        <div className="absolute bottom-0 right-0 h-[360px] w-[360px] bg-primary/5 blur-[130px]" />
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 text-center">
@@ -100,10 +101,8 @@ export function ContactFormSection() {
           transition={{ duration: 0.5 }}
           className="space-y-4"
         >
-          <span className="text-xs uppercase tracking-[0.25em] text-foreground/60">
-            Contacto
-          </span>
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          <Eyebrow n={7} label="CANAL ABIERTO" className="justify-center" />
+          <h2 className="font-display text-3xl uppercase tracking-tight text-foreground md:text-4xl">
             Construyamos algo excepcional juntos
           </h2>
           <p className="max-w-2xl text-foreground/70">
@@ -111,8 +110,8 @@ export function ContactFormSection() {
           </p>
         </motion.div>
 
-        <Card className="group relative w-full max-w-4xl overflow-hidden rounded-2xl border border-border/40 bg-background/60 p-0 backdrop-blur transition-all hover:border-border/60 hover:shadow-lg">
-          <div className="absolute inset-0 bg-linear-to-br from-foreground/4 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <Card className="group relative w-full max-w-4xl overflow-hidden border border-border bg-background/60 p-0 backdrop-blur transition-colors hover:border-accent">
+          <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
           <motion.form
             onSubmit={handleSubmit}
@@ -129,22 +128,22 @@ export function ContactFormSection() {
             >
               <motion.div
                 variants={iconVariants}
-                className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/50 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-foreground/70 backdrop-blur"
+                className="inline-flex items-center gap-2 border border-border bg-background/50 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-foreground/70 backdrop-blur"
                 aria-hidden="true"
               >
-                <span className="h-2 w-2 rounded-full bg-primary/80" />
+                <span className="h-2 w-2 bg-primary/80" />
                 Respuesta en 24 horas
               </motion.div>
 
               <div className="space-y-3">
-                <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                <h3 className="font-display text-lg uppercase tracking-tight text-foreground">
                   Cuéntame sobre tu proyecto
                 </h3>
                 <p className="text-sm text-foreground/70">
                   Podemos agendar una llamada inicial para comprender tus objetivos, plazos y requerimientos. ¿Prefieres el correo? Escríbeme a {" "}
                   <a
-                    href="mailto:hola@ejemplo.com"
-                    className="text-foreground underline decoration-border/70 underline-offset-4 transition-colors hover:text-primary"
+                    href="mailto:vigabriel.darwin@hotmail.com"
+                    className="text-foreground underline decoration-border/70 underline-offset-4 transition-colors hover:text-accent"
                   >
                     vigabriel.darwin@hotmail.com
                   </a>
@@ -192,7 +191,7 @@ export function ContactFormSection() {
                     placeholder="Ej. Juan Pérez"
                     value={formData.name}
                     onChange={handleChange}
-                    className="h-10 rounded-xl border border-border/40 bg-background/40 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="h-10 rounded-xl border border-border/40 bg-background/40 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-accent/30"
                     aria-required="true"
                     required
                   />
@@ -217,7 +216,7 @@ export function ContactFormSection() {
                       placeholder="juan@correo.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className="h-10 rounded-xl border border-border/40 bg-background/40 pl-10 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30"
+                      className="h-10 rounded-xl border border-border/40 bg-background/40 pl-10 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-accent/30"
                       autoComplete="email"
                       aria-required="true"
                       required
@@ -242,10 +241,10 @@ export function ContactFormSection() {
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="+591 77777777 o 77777777"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="rounded-xl border border-border/40 bg-background/40 pl-10 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="rounded-xl border border-border/40 bg-background/40 pl-10 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-accent/30"
                     autoComplete="tel"
                   />
                 </div>
@@ -269,7 +268,7 @@ export function ContactFormSection() {
                     placeholder="Cuéntame sobre tu visión, tiempos y lo que necesitas."
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[140px] rounded-xl border border-border/40 bg-background/40 pl-10 py-3 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="min-h-[140px] rounded-xl border border-border/40 bg-background/40 pl-10 py-3 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-accent/30"
                     aria-required="true"
                     required
                   />
@@ -281,7 +280,7 @@ export function ContactFormSection() {
                   type="submit"
                   size="lg"
                   disabled={isSubmitting}
-                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="group flex w-full items-center justify-center gap-2 bg-primary font-mono uppercase tracking-[0.08em] text-primary-foreground transition-colors hover:bg-accent disabled:opacity-70 disabled:cursor-not-allowed animate-pulse-ring"
                 >
                   {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
                   {!isSubmitting && (

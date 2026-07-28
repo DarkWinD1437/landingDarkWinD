@@ -79,6 +79,48 @@ export const data = {
             year: 'Nov 2024',
             type: 'Técnico Superior'
         }
+    ],
+    certifications: [
+        {
+            id: 'cert-seguridad',
+            title: 'Certificado Profesional de Fundamentos de Seguridad',
+            issuer: 'Microsoft & LinkedIn Learning',
+            date: '30 ene 2026',
+            skills: ['Seguridad de Microsoft', 'Gobernanza, riesgo y cumplimiento (GRC)', 'Seguridad de Cloud'],
+            credentialId: 'c2fd152c9ad78ccb4ddbdad316dcf0b2cfd69deee392f4b36208a51a6964816d'
+        },
+        {
+            id: 'cert-desarrollo-software',
+            title: 'Fundamentos profesionales del desarrollo de software',
+            issuer: 'Microsoft & LinkedIn Learning',
+            date: '22 feb 2026',
+            skills: ['Programación', 'Desarrollo de software'],
+            credentialId: 'c20943cc2f7d09b378169c0c56c18595eb3bac9c5243194ab3bf9d12f9af91f6'
+        },
+        {
+            id: 'cert-productividad-ia',
+            title: 'Desarrolla tus habilidades de productividad con IA generativa',
+            issuer: 'Microsoft & LinkedIn Learning',
+            date: '17 mar 2026',
+            skills: ['IA para empresas', 'IA para diseño', 'Productividad de IA'],
+            credentialId: 'bc03d5595aaab4a58d1acdbe29c89339866ecd3d831b1bab4e0a9f24d8f1e866'
+        },
+        {
+            id: 'cert-ciberseguridad',
+            title: 'Fundamentos profesionales en ciberseguridad',
+            issuer: 'Microsoft & LinkedIn Learning',
+            date: '06 may 2026',
+            skills: ['Ciberseguridad', 'Sensibilización sobre la seguridad de la información', 'Gestión de amenazas y vulnerabilidades'],
+            credentialId: '129b042c056af09077dc27c263cd73e16d5e1cf8c178092feea7ba0d48382a26'
+        },
+        {
+            id: 'cert-analisis-datos',
+            title: 'Fundamentos profesionales del análisis de datos',
+            issuer: 'Microsoft & LinkedIn Learning',
+            date: '09 jul 2026',
+            skills: ['Análisis de datos', 'Visualización de datos', 'Analítica de datos'],
+            credentialId: 'bdc8e6754e8eb5805358e640c44087d984aa3d7334dedaaa6cb04deac5363a97'
+        }
     ]
 }
 

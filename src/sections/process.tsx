@@ -2,48 +2,45 @@ import {
   ScrollAnimation,
   ScrollScale,
 } from '@/components/systaliko-ui/blocks/scroll-animation';
+import { Eyebrow } from '@/components/dossier/eyebrow';
 import { data } from '@/data/data';
-import { BriefcaseIcon } from 'lucide-react';
 
 export function Process() {
   return (
-    <section id="experiencia" className="relative py-12 px-4 sm:px-8 bg-background/90 backdrop-blur-sm">
-      <div className="container mx-auto md:grid md:grid-cols-2 md:gap-12 justify-between">
-        <div className="relative md:sticky md:top-0 md:left-0 h-fit max-h-vh py-6">
-          <ScrollAnimation
-            spacerClass="h-0"
-            className="overflow-hidden md:overflow-visible space-y-4"
-          >
-            <ScrollScale
-              inputRange={[0, 0.2]}
-              scaleRange={[1, 1.8]}
-              className="origin-left py-6 place-content-center"
-            >
-              <h2 className="text-4xl md:text-6xl font-bold">
-                Experiencia <br /> laboral
+    <section id="experiencia" className="relative z-10 mx-auto max-w-[1320px] px-6 py-24 md:px-16">
+      <div className="md:grid md:grid-cols-2 md:gap-12">
+        <div className="relative h-fit py-6 md:sticky md:top-24">
+          <ScrollAnimation spacerClass="h-0" className="space-y-4 overflow-hidden md:overflow-visible">
+            <Eyebrow n={4} label="LA CRÓNICA" />
+            <ScrollScale inputRange={[0, 0.2]} scaleRange={[1, 1.4]} className="origin-left py-4">
+              <h2 className="font-display text-[clamp(2.4rem,6vw,4.4rem)] uppercase leading-[1.02] text-foreground">
+                Experiencia laboral
               </h2>
             </ScrollScale>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="max-w-[46ch] font-mono text-muted-foreground">
               Mi trayectoria profesional en desarrollo de software, docencia y consultoría TI.
             </p>
           </ScrollAnimation>
         </div>
-        <div className="flex flex-col gap-12">
-          {data.experience.map((exp) => (
-            <div className="flex flex-col gap-4 py-6 border-l-2 border-primary/30 pl-6" key={exp.id}>
-              <div className="flex items-start gap-3">
-                <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <BriefcaseIcon className="size-5 text-primary" />
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-2xl font-bold">{exp.role}</h3>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-semibold text-primary">{exp.company}</span>
-                    <span className="text-sm text-muted-foreground font-medium">{exp.period}</span>
-                  </div>
-                </div>
+
+        <div className="mt-12 flex flex-col border-t border-border md:mt-0">
+          {data.experience.map((exp, index) => (
+            <div
+              key={exp.id}
+              className="grid grid-cols-[56px_1fr] gap-5 border-b border-border py-7 sm:grid-cols-[90px_1fr]"
+            >
+              <div className="font-display text-2xl text-faint sm:text-3xl">
+                {String(index + 1).padStart(2, '0')}
               </div>
-              <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
+              <div>
+                <div className="font-mono text-[0.66rem] uppercase tracking-[0.12em] text-accent">{exp.period}</div>
+                <h3 className="mt-1.5 font-display text-lg uppercase leading-tight text-foreground sm:text-xl">
+                  {exp.role} <span className="text-muted-foreground">— {exp.company}</span>
+                </h3>
+                <p className="mt-2.5 max-w-[56ch] font-mono text-sm leading-relaxed text-muted-foreground">
+                  {exp.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

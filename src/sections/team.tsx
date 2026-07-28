@@ -1,41 +1,46 @@
-import { ScrollAnimation, ScrollScale, ScrollTranslateY } from '@/components/systaliko-ui/blocks/scroll-animation';
+import { ScrollAnimation, ScrollScale } from '@/components/systaliko-ui/blocks/scroll-animation';
+import { Eyebrow } from '@/components/dossier/eyebrow';
+import { useCardTilt } from '@/hooks/use-card-tilt';
 import { data } from '@/data/data';
-import { GraduationCapIcon } from 'lucide-react';
+
+function EducationCard({ edu, index }: { edu: (typeof data.education)[number]; index: number }) {
+  const tilt = useCardTilt<HTMLDivElement>();
+
+  return (
+    <div
+      ref={tilt.ref}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
+      className="flex flex-col gap-3 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
+      style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
+    >
+      <div className="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.12em] text-faint">
+        <span>[ {String(index + 1).padStart(2, '0')} ]</span>
+        <span className="text-accent uppercase">{edu.type}</span>
+      </div>
+      <h3 className="font-display text-xl uppercase leading-tight text-foreground">{edu.title}</h3>
+      <p className="font-mono text-sm text-muted-foreground">{edu.institution}</p>
+      <p className="font-mono text-xs uppercase tracking-[0.05em] text-faint">{edu.year}</p>
+    </div>
+  );
+}
 
 export function Team() {
   return (
-    <section id="educacion" className="bg-background/90 backdrop-blur-sm">
-      <ScrollAnimation>
-        <ScrollTranslateY className="overflow-hidden min-h-svh flex flex-col justify-center items-center gap-12 px-8 py-16">
-          <ScrollScale
-            inputRange={[0, 0.5]}
-            scaleRange={[1.3, 1]}
-            className="w-10/12 flex flex-col justify-center text-center items-center mx-auto origin-center"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold">Formación académica</h2>
-          </ScrollScale>
+    <section id="educacion" className="relative z-10 mx-auto max-w-[1320px] px-6 py-24 md:px-16">
+      <ScrollAnimation spacerClass="h-0">
+        <Eyebrow n={5} label="FORMACIÓN" />
+        <ScrollScale inputRange={[0, 0.5]} scaleRange={[1.15, 1]} className="mt-3 origin-left">
+          <h2 className="font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
+            Formación académica
+          </h2>
+        </ScrollScale>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-            {data.education.map((edu) => (
-              <div
-                key={edu.id}
-                className="bg-card border rounded-xl p-6 space-y-4 shadow"
-              >
-                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <GraduationCapIcon className="size-6 text-primary" />
-                </div>
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-                    {edu.type}
-                  </span>
-                  <h3 className="text-xl font-bold">{edu.title}</h3>
-                  <p className="text-muted-foreground font-medium">{edu.institution}</p>
-                  <p className="text-sm text-muted-foreground">{edu.year}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </ScrollTranslateY>
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {data.education.map((edu, index) => (
+            <EducationCard key={edu.id} edu={edu} index={index} />
+          ))}
+        </div>
       </ScrollAnimation>
     </section>
   );

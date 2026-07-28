@@ -1,33 +1,48 @@
 import { TextStaggerInview } from '@/components/systaliko-ui/text/text-stagger-inview';
-import { Badge } from '@/components/ui/badge';
+import { Eyebrow } from '@/components/dossier/eyebrow';
+import { useTypewriter } from '@/hooks/use-typewriter';
 import { data } from '@/data/data';
 
 export function About() {
+  const { ref, display } = useTypewriter<HTMLParagraphElement>(data.bio[0]);
+  const restBio = data.bio.slice(1);
+
   return (
-    <section id="sobre-mi" className="py-16 px-8 min-h-screen place-content-center bg-background/90 backdrop-blur-sm">
-      <div className="flex flex-col space-y-6 justify-center items-center max-w-3xl mx-auto text-center">
-        <Badge className="py-2 px-4" variant="secondary">
-          Sobre mí ✨
-        </Badge>
-        <TextStaggerInview
-          as="h2"
-          animation="bottom"
-          className="text-3xl md:text-4xl *:overflow-hidden font-bold"
-        >
-          {data.fullName}
-        </TextStaggerInview>
-        <div className="space-y-4">
-          {data.bio.map((phrase, index) => (
-            <TextStaggerInview
-              key={index}
-              animation="bottom"
-              staggerValue={0.01}
-              className="text-xl md:text-2xl *:overflow-hidden font-medium leading-relaxed text-muted-foreground"
-            >
-              {phrase}
-            </TextStaggerInview>
-          ))}
-        </div>
+    <section id="sobre-mi" className="relative z-10 mx-auto max-w-[1320px] px-6 py-24 md:px-16">
+      <Eyebrow n={2} label="TRANSMISIÓN" />
+      <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-faint">{data.fullName}</p>
+      <h2 className="mt-3 max-w-3xl font-display text-[clamp(2.4rem,6vw,4.6rem)] uppercase leading-[1.06] text-foreground">
+        {data.description}
+      </h2>
+
+      <p ref={ref} className="mt-7 min-h-[3.4em] max-w-[620px] font-mono text-[1.05rem] leading-relaxed text-muted-foreground">
+        {display}
+        <span className="ml-0.5 inline-block h-[1em] w-[9px] translate-y-[2px] bg-accent align-text-bottom animate-blink" />
+      </p>
+
+      <div className="mt-6 max-w-[620px] space-y-4">
+        {restBio.map((phrase, index) => (
+          <TextStaggerInview
+            key={index}
+            as="p"
+            animation="bottom"
+            staggerValue={0.01}
+            className="font-mono text-base leading-relaxed text-muted-foreground *:overflow-hidden"
+          >
+            {phrase}
+          </TextStaggerInview>
+        ))}
+      </div>
+
+      <div className="mt-8 flex flex-wrap gap-2.5">
+        {data.skills.map((skill) => (
+          <span
+            key={skill.id}
+            className="border border-border px-3.5 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-muted-foreground"
+          >
+            {skill.category}
+          </span>
+        ))}
       </div>
     </section>
   );

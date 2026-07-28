@@ -1,0 +1,61 @@
+/* Animation primitives for the "dossier/terminal" visual language. */
+
+@theme {
+  --animate-scan-sweep: scanSweep 9s linear infinite;
+  --animate-blink: blinkStep 1.6s steps(1) infinite;
+  --animate-pulse-ring: pulseRing 2.8s ease-in-out infinite;
+  --animate-marquee: marqueeScroll 26s linear infinite;
+  --animate-spin-slow: spinSlow 70s linear infinite;
+  --animate-drip: dripDown 2s ease-in-out infinite;
+}
+
+@keyframes scanSweep {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes dripDown {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+
+@keyframes blinkStep {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0.15; }
+}
+
+@keyframes pulseRing {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.62 0.19 26 / 0.4); }
+  50% { box-shadow: 0 0 0 16px oklch(0.62 0.19 26 / 0); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes glitchTop {
+  0%, 92%, 100% { clip-path: inset(0 0 0 0); opacity: 0; }
+  93% { clip-path: inset(10% 0 60% 0); opacity: 0.7; }
+  95% { clip-path: inset(60% 0 5% 0); opacity: 0.7; }
+  97% { clip-path: inset(30% 0 40% 0); opacity: 0.6; }
+  99%, 100% { opacity: 0; }
+}
+
+@keyframes glitchBottom {
+  0%, 90%, 100% { clip-path: inset(0 0 0 0); opacity: 0; }
+  91% { clip-path: inset(50% 0 20% 0); opacity: 0.6; }
+  94% { clip-path: inset(15% 0 70% 0); opacity: 0.7; }
+  98% { clip-path: inset(70% 0 5% 0); opacity: 0.5; }
+  99.5%, 100% { opacity: 0; }
+}
+
+::selection {
+  background: oklch(0.62 0.19 26);
+  color: oklch(0.13 0.012 262);
+}
