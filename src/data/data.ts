@@ -20,7 +20,7 @@ export const data = {
             id: 'skill-frontend',
             category: 'Frontend',
             iconBg: 'from-indigo-600 to-indigo-500',
-            items: ['React', 'Vite', 'TypeScript', 'JavaScript', 'Handlebars']
+            items: ['React', 'Vite', 'TypeScript', 'JavaScript', 'Handlebars', 'Vuejs', 'TailwindCSS']
         },
         {
             id: 'skill-backend',
@@ -32,7 +32,7 @@ export const data = {
             id: 'skill-db',
             category: 'Bases de datos',
             iconBg: 'from-emerald-600 to-emerald-500',
-            items: ['PostgreSQL', 'MySQL', 'SQL Server']
+            items: ['PostgreSQL', 'MySQL', 'SQL Server', 'Redis']
         },
         {
             id: 'skill-devops',
@@ -43,10 +43,17 @@ export const data = {
     ],
     experience: [
         {
+            id: 'exp-eracuan',
+            role: 'Desarollador FullStack',
+            company: 'Eracuan',
+            period: 'Abr 2026 – Presente',
+            description: 'Desarrollo de soluciones web completas, desde el diseño de interfaces hasta la implementación de arquitecturas backend escalables.'
+        },
+        {
             id: 'exp-nexus',
             role: 'Desarrollador de Software',
             company: 'Nexus',
-            period: 'Oct 2025 – Presente',
+            period: 'Oct 2025 – Abr 2026',
             description: 'Desarrollo de soluciones de software a medida, implementando arquitecturas modernas y buenas prácticas de ingeniería.'
         },
         {

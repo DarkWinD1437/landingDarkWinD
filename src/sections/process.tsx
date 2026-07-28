@@ -13,7 +13,7 @@ export function Process() {
           <ScrollAnimation spacerClass="h-0" className="space-y-4 overflow-hidden md:overflow-visible">
             <Eyebrow n={4} label="LA CRÓNICA" />
             <ScrollScale inputRange={[0, 0.2]} scaleRange={[1, 1.4]} className="origin-left py-4">
-              <h2 className="font-display text-[clamp(2.4rem,6vw,4.4rem)] uppercase leading-[1.02] text-foreground">
+              <h2 className="font-display text-[clamp(2.4rem,6vw,3.5rem)] uppercase leading-[1.02] text-foreground">
                 Experiencia laboral
               </h2>
             </ScrollScale>
