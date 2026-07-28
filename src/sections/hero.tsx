@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { ContainerStagger } from '@/components/systaliko-ui/blocks/container-stagger';
 import { motion, MotionConfig } from 'motion/react';
 import { Button } from '@/components/ui/button';
@@ -5,9 +6,14 @@ import { ANIMATION_VARIANTS } from '@/components/systaliko-ui/utils/animation-va
 import { Eyebrow } from '@/components/dossier/eyebrow';
 import { GlitchHeading } from '@/components/dossier/glitch-heading';
 import { ParticleField } from '@/components/dossier/particle-field';
-import { WireframeCity } from '@/components/dossier/wireframe-city';
 import { data } from '@/data/data';
 import perfilImg from '@/assets/perfil.jpg';
+
+// Lazy-loaded: pulls in `ogl` (WebGL), which only this decorative
+// background needs — keeps it out of the main bundle chunk.
+const WireframeCity = lazy(() =>
+  import('@/components/dossier/wireframe-city').then((m) => ({ default: m.WireframeCity }))
+);
 
 export function Hero() {
   const animationVariants = ANIMATION_VARIANTS['bottom'];
@@ -18,7 +24,9 @@ export function Hero() {
       id="inicio"
       className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pb-24 pt-32 md:px-16"
     >
-      <WireframeCity className="z-0" />
+      <Suspense fallback={null}>
+        <WireframeCity className="z-0" />
+      </Suspense>
       <ParticleField className="z-1 opacity-85" />
 
       <div

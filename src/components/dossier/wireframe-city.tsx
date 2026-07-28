@@ -3,7 +3,7 @@ import { Camera, Geometry, Mesh, type OGLRenderingContext, Program, Renderer, Tr
 import { cn } from '@/lib/utils';
 
 const BOX_COUNT = 130;
-const EDGE_HALF_THICKNESS = 0.1;
+const EDGE_HALF_THICKNESS = 0.19;
 const CYAN: [number, number, number] = [0.32, 0.7, 0.78];
 const RED: [number, number, number] = [0.75, 0.38, 0.28];
 

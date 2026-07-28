@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants } from "motion/react";
 import { Mail, MessageSquare, Phone, Send } from "lucide-react";
 import { useState } from "react";
 
@@ -60,8 +60,8 @@ export function ContactFormSection() {
   return (
     <section className="relative overflow-hidden bg-background px-6 py-24 sm:px-8 md:py-28">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-6 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-foreground/[0.035] blur-[140px]" />
-        <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-primary/[0.03] blur-[130px]" />
+        <div className="absolute left-1/2 top-6 h-130 w-130 -translate-x-1/2 rounded-full bg-foreground/[0.035] blur-[140px]" />
+        <div className="absolute bottom-0 right-0 h-90 w-90 rounded-full bg-primary/3 blur-[130px]" />
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 text-center">
@@ -86,7 +86,7 @@ export function ContactFormSection() {
         </motion.div>
 
         <Card className="group relative w-full max-w-4xl overflow-hidden rounded-2xl border border-border/40 bg-background/60 p-0 backdrop-blur transition-all hover:border-border/60 hover:shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.04] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-linear-to-br from-foreground/4 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
           <motion.form
             onSubmit={handleSubmit}
@@ -244,7 +244,7 @@ export function ContactFormSection() {
                     placeholder="Tell us about your vision, timeline, and deliverables."
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[140px] rounded-xl border border-border/40 bg-background/40 pl-10 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="min-h-35 rounded-xl border border-border/40 bg-background/40 pl-10 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-primary/30"
                     aria-required="true"
                     required
                   />
