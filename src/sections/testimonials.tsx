@@ -57,7 +57,7 @@ export function Testimonials() {
 
       <ContainerScrollRotatedCards className="container h-[200vh] md:h-[300vh] ">
         <div className="sticky overflow-hidden left-0 top-0 h-svh w-full py-12">
-          <CardsContainer className="mx-auto size-full h-[450px] w-full sm:w-[350px]">
+          <CardsContainer className="mx-auto size-full h-112.5 w-full sm:w-87.5">
             {TESTIMONIALS.map((testimonial, index) => (
               <CardTransformed
                 arrayLength={TESTIMONIALS.length}
@@ -76,7 +76,7 @@ export function Testimonials() {
                   role="article"
                   aria-labelledby={`card-${testimonial.id}-title`}
                   aria-describedby={`card-${testimonial.id}-content`}
-                  className="h-[450px] w-full sm:w-[350px] justify-center items-center bg-card/50 border"
+                  className="h-112.5 w-full sm:w-87.5 justify-center items-center bg-card/50 border"
                 >
                   <TestimonialRating className="text-primary" />
                   <div className="relative text-center mx-auto w-4/5 text-lg">

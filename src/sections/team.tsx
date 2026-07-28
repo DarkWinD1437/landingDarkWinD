@@ -4,13 +4,13 @@ import { useCardTilt } from '@/hooks/use-card-tilt';
 import { data } from '@/data/data';
 
 function EducationCard({ edu, index }: { edu: (typeof data.education)[number]; index: number }) {
-  const tilt = useCardTilt<HTMLDivElement>();
+  const { ref, onMouseMove, onMouseLeave } = useCardTilt<HTMLDivElement>();
 
   return (
     <div
-      ref={tilt.ref}
-      onMouseMove={tilt.onMouseMove}
-      onMouseLeave={tilt.onMouseLeave}
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       className="flex flex-col gap-3 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
       style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
     >
@@ -27,7 +27,7 @@ function EducationCard({ edu, index }: { edu: (typeof data.education)[number]; i
 
 export function Team() {
   return (
-    <section id="educacion" className="relative z-10 mx-auto max-w-[1320px] px-6 py-24 md:px-16">
+    <section id="educacion" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
       <ScrollAnimation spacerClass="h-0">
         <Eyebrow n={5} label="FORMACIÓN" />
         <ScrollScale inputRange={[0, 0.5]} scaleRange={[1.15, 1]} className="mt-3 origin-left">

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Camera, Geometry, Mesh, Program, Renderer, Transform } from 'ogl';
+import { Camera, Geometry, Mesh, type OGLRenderingContext, Program, Renderer, Transform } from 'ogl';
 import { cn } from '@/lib/utils';
 
 const BOX_COUNT = 130;
@@ -29,7 +29,7 @@ function scale(a: Vec3Tuple, s: number): Vec3Tuple {
 // Edges are turned into thin triangulated ribbons instead of GL_LINES:
 // most browsers/GPUs clamp gl.lineWidth to 1px regardless of what's
 // requested, so this is the only reliable way to get a thicker stroke.
-function buildCityGeometry(gl: WebGLRenderingContext | WebGL2RenderingContext) {
+function buildCityGeometry(gl: OGLRenderingContext) {
   const positions: number[] = [];
   const colors: number[] = [];
   const alphas: number[] = [];

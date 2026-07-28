@@ -16,17 +16,17 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[100vh] flex-col justify-center overflow-hidden px-6 pb-24 pt-32 md:px-16"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pb-24 pt-32 md:px-16"
     >
       <WireframeCity className="z-0" />
       <ParticleField className="z-1 opacity-85" />
 
       <div
-        className="pointer-events-none absolute right-[-100px] top-[46%] z-[2] size-[420px] -translate-y-1/2 rounded-full border border-dashed border-border opacity-45 animate-spin-slow md:right-[-40px] md:size-[480px]"
+        className="pointer-events-none absolute -right-25 top-[46%] z-2 size-105 -translate-y-1/2 rounded-full border border-dashed border-border opacity-45 animate-spin-slow md:-right-10 md:size-120"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-[10px] top-[46%] z-[2] hidden size-[320px] -translate-y-1/2 rounded-full border border-border opacity-30 md:block"
+        className="pointer-events-none absolute right-2.5 top-[46%] z-2 hidden size-80 -translate-y-1/2 rounded-full border border-border opacity-30 md:block"
         aria-hidden="true"
       />
 

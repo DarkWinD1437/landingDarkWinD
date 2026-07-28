@@ -14,14 +14,14 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
 };
 
 function SkillCard({ skill, index }: { skill: (typeof data.skills)[number]; index: number }) {
-  const tilt = useCardTilt<HTMLDivElement>();
+  const { ref, onMouseMove, onMouseLeave } = useCardTilt<HTMLDivElement>();
   const Icon = CATEGORY_ICONS[skill.category];
 
   return (
     <div
-      ref={tilt.ref}
-      onMouseMove={tilt.onMouseMove}
-      onMouseLeave={tilt.onMouseLeave}
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       className="flex h-full flex-col gap-4 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
       style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
     >
@@ -53,7 +53,7 @@ function SkillCard({ skill, index }: { skill: (typeof data.skills)[number]; inde
 export function Values() {
   const variants = ANIMATION_VARIANTS['right'];
   return (
-    <section id="habilidades" className="relative z-10 mx-auto max-w-[1320px] px-6 py-24 md:px-16">
+    <section id="habilidades" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
       <Eyebrow n={3} label="EL ARSENAL" />
       <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
         Stack técnico

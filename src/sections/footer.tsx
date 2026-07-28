@@ -24,7 +24,7 @@ const SOCIAL_LINKS = [
 export function Footer() {
     return (
         <footer className="border-t border-border px-8 pb-14 pt-10">
-            <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-4">
+            <div className="mx-auto flex max-w-330 flex-wrap items-center justify-between gap-4">
                 <div className="inline-flex items-center gap-1.5 border border-border px-2.5 py-1.5 font-mono text-sm font-bold tracking-[0.1em]">
                     <img src={logo} alt="" className="size-4" />
                     DarkWinD
@@ -49,7 +49,7 @@ export function Footer() {
                 </ul>
             </div>
 
-            <div className="mx-auto mt-6 flex max-w-[1320px] flex-wrap justify-between gap-4">
+            <div className="mx-auto mt-6 flex max-w-330 flex-wrap justify-between gap-4">
                 <ul className="flex flex-wrap gap-x-5 gap-y-2 py-2">
                     {NAV_LINKS.map((link) => (
                         <li key={link.label}>
@@ -74,7 +74,7 @@ export function Footer() {
                 </div>
             </div>
 
-            <div className="mx-auto mt-8 flex max-w-[1320px] flex-wrap items-center justify-between gap-2 border-t border-border pt-6 font-mono text-[0.68rem] tracking-[0.08em] text-faint">
+            <div className="mx-auto mt-8 flex max-w-330 flex-wrap items-center justify-between gap-2 border-t border-border pt-6 font-mono text-[0.68rem] tracking-[0.08em] text-faint">
                 <span>{data.name.toUpperCase()} — REGISTRO EN CURSO</span>
                 <span>&copy; {new Date().getFullYear()}</span>
             </div>

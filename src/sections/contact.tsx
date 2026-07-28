@@ -89,8 +89,8 @@ export function ContactFormSection() {
   return (
     <section id="contacto" className="relative overflow-hidden bg-background px-4 sm:px-8 md:py-28 py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-6 h-[520px] w-[520px] -translate-x-1/2 bg-accent/5 blur-[140px]" />
-        <div className="absolute bottom-0 right-0 h-[360px] w-[360px] bg-primary/5 blur-[130px]" />
+        <div className="absolute left-1/2 top-6 h-130 w-130 -translate-x-1/2 bg-accent/5 blur-[140px]" />
+        <div className="absolute bottom-0 right-0 h-90 w-90 bg-primary/5 blur-[130px]" />
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 text-center">
@@ -268,7 +268,7 @@ export function ContactFormSection() {
                     placeholder="Cuéntame sobre tu visión, tiempos y lo que necesitas."
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[140px] rounded-xl border border-border/40 bg-background/40 pl-10 py-3 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-accent/30"
+                    className="min-h-35 rounded-xl border border-border/40 bg-background/40 pl-10 py-3 text-sm text-foreground transition-all focus-visible:border-border/60 focus-visible:ring-2 focus-visible:ring-accent/30"
                     aria-required="true"
                     required
                   />

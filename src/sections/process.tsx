@@ -7,7 +7,7 @@ import { data } from '@/data/data';
 
 export function Process() {
   return (
-    <section id="experiencia" className="relative z-10 mx-auto max-w-[1320px] px-6 py-24 md:px-16">
+    <section id="experiencia" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
       <div className="md:grid md:grid-cols-2 md:gap-12">
         <div className="relative h-fit py-6 md:sticky md:top-24">
           <ScrollAnimation spacerClass="h-0" className="space-y-4 overflow-hidden md:overflow-visible">
