@@ -4,17 +4,20 @@ import { Eyebrow } from '@/components/dossier/eyebrow';
 import { useCardTilt } from '@/hooks/use-card-tilt';
 import { data } from '@/data/data';
 import { motion, MotionConfig } from 'motion/react';
-import { BadgeCheckIcon } from 'lucide-react';
+import { BadgeCheckIcon, ExternalLinkIcon } from 'lucide-react';
 
 function CertificationCard({ cert, index }: { cert: (typeof data.certifications)[number]; index: number }) {
-  const { ref, onMouseMove, onMouseLeave } = useCardTilt<HTMLDivElement>();
+  const { ref, onMouseMove, onMouseLeave } = useCardTilt<HTMLAnchorElement>();
 
   return (
-    <div
+    <a
       ref={ref}
+      href={cert.verifyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="flex h-full flex-col gap-4 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
+      className="group flex h-full flex-col gap-4 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
       style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
     >
       <div className="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.12em] text-faint">
@@ -43,10 +46,11 @@ function CertificationCard({ cert, index }: { cert: (typeof data.certifications)
         ))}
       </div>
 
-      <div className="mt-auto truncate border-t border-border pt-3 font-mono text-[0.62rem] tracking-[0.03em] text-faint">
-        ID: {cert.credentialId}
+      <div className="mt-auto flex items-center gap-1.5 truncate border-t border-border pt-3 font-mono text-[0.62rem] tracking-[0.03em] text-faint transition-colors group-hover:text-accent">
+        <span className="truncate">ID: {cert.credentialId}</span>
+        <ExternalLinkIcon className="size-3 shrink-0" aria-hidden="true" />
       </div>
-    </div>
+    </a>
   );
 }
 
