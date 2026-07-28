@@ -9,6 +9,7 @@ import { motion, type Variants } from "motion/react";
 import { Mail, MessageSquare, Phone, Send } from "lucide-react";
 import { useState } from "react";
 import { Eyebrow } from "@/components/dossier/eyebrow";
+import { GlitchDialog } from "@/components/dossier/glitch-dialog";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -45,11 +46,15 @@ export function ContactFormSection() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dialog, setDialog] = useState<{ open: boolean; variant: "success" | "error" }>({
+    open: false,
+    variant: "success",
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch("https://formsubmit.co/ajax/vigabriel.darwin@hotmail.com", {
         method: "POST",
@@ -64,14 +69,14 @@ export function ContactFormSection() {
       });
 
       if (response.ok) {
-        alert("¡Mensaje enviado con éxito! Te contactaré pronto.");
+        setDialog({ open: true, variant: "success" });
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
-        alert("Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.");
+        setDialog({ open: true, variant: "error" });
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.");
+      setDialog({ open: true, variant: "error" });
     } finally {
       setIsSubmitting(false);
     }
@@ -295,6 +300,18 @@ export function ContactFormSection() {
           </motion.form>
         </Card>
       </div>
+
+      <GlitchDialog
+        open={dialog.open}
+        variant={dialog.variant}
+        title={dialog.variant === "success" ? "Mensaje enviado" : "Error de envío"}
+        message={
+          dialog.variant === "success"
+            ? "Te contactaré pronto. Gracias por escribirme."
+            : "Hubo un problema al enviar el mensaje. Intenta de nuevo o escríbeme directo a vigabriel.darwin@hotmail.com."
+        }
+        onClose={() => setDialog((d) => ({ ...d, open: false }))}
+      />
     </section>
   );
 }
