@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://darkwind.netlify.app/*"
+  to = "https://darkwind.dev/:splat"
+  status = 301
+  force = true

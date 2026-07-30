@@ -7,7 +7,7 @@ import { Eyebrow } from '@/components/dossier/eyebrow';
 import { GlitchHeading } from '@/components/dossier/glitch-heading';
 import { ParticleField } from '@/components/dossier/particle-field';
 import { data } from '@/data/data';
-import perfilImg from '@/assets/perfil.jpg';
+import perfilImg from '@/assets/perfil.webp';
 
 // Lazy-loaded: pulls in `ogl` (WebGL), which only this decorative
 // background needs — keeps it out of the main bundle chunk.
