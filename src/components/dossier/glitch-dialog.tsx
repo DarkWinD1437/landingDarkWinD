@@ -89,15 +89,7 @@ export function GlitchDialog({ open, variant, title, message, onClose }: GlitchD
           aria-modal="true"
           aria-label={title}
         >
-          <motion.div
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={onClose}
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0" onClick={onClose} aria-hidden="true" />
 
           <motion.div
             variants={panelVariants}
