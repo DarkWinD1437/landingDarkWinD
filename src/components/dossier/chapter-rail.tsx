@@ -34,7 +34,7 @@ export function ChapterRail() {
   };
 
   return (
-    <div className="fixed right-[22px] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-end gap-4 lg:flex">
+    <div className="fixed right-5.5 top-1/2 z-90 hidden -translate-y-1/2 flex-col items-end gap-4 lg:flex">
       {CHAPTERS.map((c) => {
         const isActive = active === c.n;
         return (

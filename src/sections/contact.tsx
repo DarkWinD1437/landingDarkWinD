@@ -106,7 +106,7 @@ export function ContactFormSection() {
           transition={{ duration: 0.5 }}
           className="space-y-4"
         >
-          <Eyebrow n={7} label="CANAL ABIERTO" className="justify-center" />
+          <Eyebrow n={8} label="CANAL ABIERTO" className="justify-center" />
           <h2 className="font-display text-3xl uppercase tracking-tight text-foreground md:text-4xl">
             Construyamos algo excepcional juntos
           </h2>

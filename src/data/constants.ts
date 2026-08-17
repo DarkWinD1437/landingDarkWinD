@@ -22,6 +22,10 @@ export const NAV_LINKS = [
     {
         label: 'Certificaciones',
         href: '#certificaciones',
+    },
+    {
+        label: 'Proyectos',
+        href: '#proyectos',
     }
 ]
 
@@ -32,5 +36,6 @@ export const CHAPTERS = [
     { n: 4, label: '004', href: '#experiencia' },
     { n: 5, label: '005', href: '#educacion' },
     { n: 6, label: '006', href: '#certificaciones' },
-    { n: 7, label: '007', href: '#contacto' },
+    { n: 7, label: '007', href: '#proyectos' },
+    { n: 8, label: '008', href: '#contacto' },
 ]

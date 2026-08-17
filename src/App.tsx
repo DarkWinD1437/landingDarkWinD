@@ -6,6 +6,7 @@ import { Values } from './sections/values'
 import { Team } from './sections/team'
 import { Process } from './sections/process'
 import { Certifications } from './sections/certifications'
+import { Projects } from './sections/projects'
 import { ContactFormSection } from './sections/contact'
 import { ScanOverlay } from './components/dossier/scan-overlay'
 import { MarqueeTicker } from './components/dossier/marquee-ticker'
@@ -38,6 +39,8 @@ function App() {
           <SectionDivider n={5} />
           <Certifications />
           <SectionDivider n={6} />
+          <Projects />
+          <SectionDivider n={7} />
           <ContactFormSection />
         </main>
         <Footer />

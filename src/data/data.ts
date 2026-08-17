@@ -87,6 +87,16 @@ export const data = {
             type: 'Técnico Superior'
         }
     ],
+    projects: [
+        {
+            id: 'proj-darkwind-ui',
+            title: 'darkwind_ui',
+            description: 'Terminal de escritorio con estética cyberpunk, construida desde cero con Vue 3, TypeScript y Tauri v2 (Rust). Combina un shell real vía PTY nativo multi-tab, paneles de monitoreo de sistema y red en vivo, explorador de archivos, teclado táctil y un globo 3D de conexiones — pensada para correr en modo kiosco en una pantalla dedicada o como entorno de escritorio diario.',
+            stack: ['Vue 3', 'TypeScript', 'Tauri (Rust)', 'Three.js'],
+            version: 'v1.1.1',
+            repoUrl: 'https://github.com/DarkWinD1437/darkwind_ui'
+        }
+    ],
     certifications: [
         {
             id: 'cert-seguridad',
