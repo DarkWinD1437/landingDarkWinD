@@ -151,6 +151,15 @@ export const data = {
             skills: ['Microsoft Copilot', 'Ética Computacional', 'IA Generativa'],
             credentialId: '3b75042923fae08e685bf69dbc5ff94c7e8bd30fceb01ef8bd71e5e3b36061a5',
             verifyUrl: 'https://www.linkedin.com/learning/certificates/3b75042923fae08e685bf69dbc5ff94c7e8bd30fceb01ef8bd71e5e3b36061a5'
+        },
+        {
+            id: 'cert-iot',
+            title: 'Introduccion a la Internet de las Cosas (IoT)',
+            issuer: 'Cisco Networking Academy',
+            date: '23 jul 2023',
+            skills: ['IoT', 'Redes', 'Transformación Digital'],
+            credentialId: '999f66b8-9f00-4cfa-b936-d0fa860fb011',
+            verifyUrl: 'https://www.credly.com/badges/999f66b8-9f00-4cfa-b936-d0fa860fb011/public_url'
         }
     ]
 }
