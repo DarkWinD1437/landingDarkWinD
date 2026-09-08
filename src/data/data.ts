@@ -142,6 +142,15 @@ export const data = {
             skills: ['Análisis de datos', 'Visualización de datos', 'Analítica de datos'],
             credentialId: 'bdc8e6754e8eb5805358e640c44087d984aa3d7334dedaaa6cb04deac5363a97',
             verifyUrl: 'https://www.linkedin.com/learning/certificates/bdc8e6754e8eb5805358e640c44087d984aa3d7334dedaaa6cb04deac5363a97'
+        },
+        {
+            id: 'cert-ia-generativa',
+            title: 'Fundamentos profesionales de la IA generativa',
+            issuer: 'Microsoft & LinkedIn Learning',
+            date: '08 sep 2026',
+            skills: ['Microsoft Copilot', 'Ética Computacional', 'IA Generativa'],
+            credentialId: '3b75042923fae08e685bf69dbc5ff94c7e8bd30fceb01ef8bd71e5e3b36061a5',
+            verifyUrl: 'https://www.linkedin.com/learning/certificates/3b75042923fae08e685bf69dbc5ff94c7e8bd30fceb01ef8bd71e5e3b36061a5'
         }
     ]
 }
