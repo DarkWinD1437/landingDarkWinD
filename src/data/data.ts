@@ -160,6 +160,15 @@ export const data = {
             skills: ['IoT', 'Redes', 'Transformación Digital'],
             credentialId: '999f66b8-9f00-4cfa-b936-d0fa860fb011',
             verifyUrl: 'https://www.credly.com/badges/999f66b8-9f00-4cfa-b936-d0fa860fb011/public_url'
+        },
+        {
+            id: 'cert-modelos-llm',
+            title: 'Modelos LLM de IA potenciados con contexto: RAG y bases de datos vectoriales',
+            issuer: 'LinkedIn Learning',
+            date: '23 oct 2026',
+            skills: ['RAG', 'Inteligencia Artificial', 'Ciencia de datos'],
+            credentialId: '79051f4ac7d13fe33c5bbebdc40c31955a4a31042c0b9242130a1d3197ee799d',
+            verifyUrl: 'https://www.linkedin.com/learning/certificates/79051f4ac7d13fe33c5bbebdc40c31955a4a31042c0b9242130a1d3197ee799d'
         }
     ]
 }
