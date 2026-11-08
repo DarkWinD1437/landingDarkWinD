@@ -1,4 +1,3 @@
-import { FRAME_COLOR, FRAME_DIM, FRAME_FONT, FRAME_GLOW, FRAME_INK } from './palette';
 import { smoothstep } from './math';
 
 export interface Rect {
@@ -14,8 +13,9 @@ export interface Vec {
 }
 
 /**
- * Point on a rectangle's perimeter, `s` px from the top-left corner going
- * clockwise. Wraps, so heads and their followers can cross the start corner.
+ * Punto del perímetro de un rectángulo, a `s` px de la esquina superior izquierda
+ * en sentido horario. Da la vuelta, así las cabezas y sus seguidores pueden cruzar
+ * la esquina inicial.
  */
 export function perimeterPoint(r: Rect, s: number, out: Vec): Vec {
   const P = 2 * (r.width + r.height);
@@ -48,200 +48,221 @@ export function perimeterPoint(r: Rect, s: number, out: Vec): Vec {
   return out;
 }
 
-/** Strokes the stretch [a, b] (px along the perimeter, a ≤ b ≤ P) of the rect. */
-function strokeSpan(ctx: CanvasRenderingContext2D, r: Rect, a: number, b: number) {
-  const { left: x, top: y, width: w, height: h } = r;
-  const edges: [number, number, number, number, number][] = [
-    [x, y, x + w, y, w],
-    [x + w, y, x + w, y + h, h],
-    [x + w, y + h, x, y + h, w],
-    [x, y + h, x, y, h],
-  ];
+/* ─────────────────────────────────────────────────────────────────────────
+ * Marco de construcción: vive en el DOM, no en el canvas
+ *
+ * El scroll táctil lo conduce el compositor del navegador, un frame o más por
+ * delante de JavaScript. Un marco pintado en un canvas fijo a partir de
+ * `getBoundingClientRect` queda por detrás del componente que enmarca y vibra
+ * visiblemente al deslizar. Un marco que es un nodo del DOM dentro de la página
+ * se desplaza *junto* con el contenido, así que se mantiene pegado a él por
+ * rápido que mueva el dedo; el motor solo debe moverlo cuando el propio
+ * componente cambia de tamaño o posición. Al ser DOM real, además, se ve nítido
+ * con cualquier densidad de píxeles.
+ * ──────────────────────────────────────────────────────────────────────── */
 
-  let offset = 0;
-  let started = false;
-  ctx.beginPath();
-  for (const [x0, y0, x1, y1, len] of edges) {
-    const s = Math.max(a, offset);
-    const e = Math.min(b, offset + len);
-    if (e > s) {
-      const t0 = (s - offset) / len;
-      const t1 = (e - offset) / len;
-      const sx = x0 + (x1 - x0) * t0;
-      const sy = y0 + (y1 - y0) * t0;
-      if (started) ctx.lineTo(sx, sy);
-      else ctx.moveTo(sx, sy);
-      ctx.lineTo(x0 + (x1 - x0) * t1, y0 + (y1 - y0) * t1);
-      started = true;
-    }
-    offset += len;
-  }
-  ctx.stroke();
-}
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const MAX_HEADS = 4;
+const SCAN_BAND = 26;
 
-function strokeRange(ctx: CanvasRenderingContext2D, r: Rect, start: number, length: number) {
-  const P = 2 * (r.width + r.height);
-  if (length <= 0) return;
-  if (length >= P) {
-    strokeSpan(ctx, r, 0, P);
-    return;
-  }
-  const a = ((start % P) + P) % P;
-  const b = a + length;
-  if (b > P) {
-    strokeSpan(ctx, r, a, P);
-    strokeSpan(ctx, r, 0, b - P);
-  } else {
-    strokeSpan(ctx, r, a, b);
-  }
-}
-
-export interface FrameOptions {
+export interface FrameState {
   label: string;
-  /** How many heads are inking the border in parallel (each covers 1/heads of it). */
+  /** Cuántas cabezas entintan el borde en paralelo (cada una cubre 1/heads de él). */
   heads: number;
-  /** Border ink progress, 0 → 1. */
+  /** Progreso del entintado del borde, 0 → 1. */
   inked: number;
-  /** Reveal progress, 0 → 1, drives the scan line. `null` once finished. */
+  /** Progreso del revelado para la línea de escaneo, o `null` si no hay. */
   scan: number | null;
-  /** Thin dividers get a lightweight line + end ticks instead of a full frame. */
-  line: boolean;
   alpha: number;
 }
 
-/**
- * The "construction frame": a dashed ghost of the component's box appears the
- * moment the swarm picks it up, the mice ink it solid, and a size tag counts
- * up to the real pixel dimensions — so you can read each component's size at
- * the instant it is created.
- */
-export function drawBuildFrame(ctx: CanvasRenderingContext2D, rect: Rect, o: FrameOptions) {
-  if (o.alpha <= 0.01 || rect.width < 1 || rect.height < 1) return;
-
-  // Pixel-snapped so 1px strokes stay crisp.
-  const r: Rect = {
-    left: Math.round(rect.left) + 0.5,
-    top: Math.round(rect.top) + 0.5,
-    width: Math.max(1, Math.round(rect.width) - 1),
-    height: Math.max(1, Math.round(rect.height) - 1),
-  };
-
-  ctx.save();
-  ctx.globalAlpha = o.alpha;
-
-  if (o.line) drawLineFrame(ctx, r, o);
-  else drawBoxFrame(ctx, r, o);
-
-  ctx.restore();
+export interface FrameView {
+  update(rect: Rect, state: FrameState): void;
+  remove(): void;
 }
 
-function drawLineFrame(ctx: CanvasRenderingContext2D, r: Rect, o: FrameOptions) {
-  const cy = Math.round(r.top + r.height / 2) + 0.5;
-  const right = r.left + r.width;
-
-  ctx.setLineDash([4, 5]);
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = FRAME_DIM;
-  ctx.beginPath();
-  ctx.moveTo(r.left, cy);
-  ctx.lineTo(right, cy);
-  ctx.stroke();
-
-  ctx.setLineDash([]);
-  ctx.lineWidth = 1.5;
-  ctx.strokeStyle = FRAME_COLOR;
-  ctx.beginPath();
-  ctx.moveTo(r.left, cy);
-  ctx.lineTo(r.left + r.width * o.inked, cy);
-  ctx.stroke();
-
-  // End ticks.
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(r.left, cy - 5);
-  ctx.lineTo(r.left, cy + 5);
-  ctx.moveTo(right, cy - 5);
-  ctx.lineTo(right, cy + 5);
-  ctx.stroke();
+function el<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, parent?: HTMLElement) {
+  const node = document.createElement(tag);
+  node.className = className;
+  parent?.appendChild(node);
+  return node;
 }
 
-function drawBoxFrame(ctx: CanvasRenderingContext2D, r: Rect, o: FrameOptions) {
-  // 1. Ghost outline — the reserved footprint.
-  ctx.setLineDash([4, 5]);
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = FRAME_DIM;
-  ctx.strokeRect(r.left, r.top, r.width, r.height);
+function svgEl<K extends keyof SVGElementTagNameMap>(tag: K, className: string, parent: Element) {
+  const node = document.createElementNS(SVG_NS, tag);
+  node.setAttribute('class', className);
+  parent.appendChild(node);
+  return node;
+}
 
-  // 2. Solid ink laid down by the mice, each head covering an equal share.
-  ctx.setLineDash([]);
-  ctx.lineWidth = 1.5;
-  ctx.strokeStyle = FRAME_COLOR;
-  const P = 2 * (r.width + r.height);
-  const heads = Math.max(1, o.heads);
-  for (let i = 0; i < heads; i++) {
-    strokeRange(ctx, r, (i / heads) * P, (o.inked / heads) * P);
+export function createFrameView(layer: HTMLElement, line: boolean): FrameView {
+  const root = el('div', line ? 'swarm-frame swarm-frame--line' : 'swarm-frame', layer);
+
+  // Últimos valores escritos: se omiten escrituras de estilo (y trabajo de layout/pintado) si nada cambió.
+  let lx = NaN;
+  let ly = NaN;
+  let lw = NaN;
+  let lh = NaN;
+  let lAlpha = NaN;
+  let lHandle = NaN;
+  let lText = '';
+  let lScan = NaN;
+  const lInk: string[] = [];
+
+  /* ── divisor: una guía punteada con una línea sólida entintada encima ── */
+  if (line) {
+    el('div', 'swarm-frame__line-ghost', root);
+    const ink = el('div', 'swarm-frame__line-ink', root);
+    el('i', 'swarm-frame__tick swarm-frame__tick--l', root);
+    el('i', 'swarm-frame__tick swarm-frame__tick--r', root);
+
+    return {
+      update(rect, s) {
+        const x = Math.round(rect.left * 10) / 10;
+        const y = Math.round(rect.top * 10) / 10;
+        if (x !== lx || y !== ly) {
+          root.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          lx = x;
+          ly = y;
+        }
+        const w = Math.round(rect.width);
+        const h = Math.round(rect.height);
+        if (w !== lw || h !== lh) {
+          root.style.width = `${w}px`;
+          root.style.height = `${h}px`;
+          lw = w;
+          lh = h;
+        }
+        const alpha = Math.round(s.alpha * 100) / 100;
+        if (alpha !== lAlpha) {
+          root.style.opacity = String(alpha);
+          lAlpha = alpha;
+        }
+        const scale = `scaleX(${s.inked.toFixed(3)})`;
+        if (scale !== lText) {
+          ink.style.transform = scale;
+          lText = scale;
+        }
+      },
+      remove() {
+        root.remove();
+      },
+    };
   }
 
-  // 3. Scan line sweeping across while the content materialises.
-  if (o.scan !== null && o.scan > 0 && o.scan < 1) {
-    const y = r.top + r.height * o.scan;
-    const fade = 1 - o.scan ** 3;
-    const band = Math.min(26, r.height * o.scan);
-    const grad = ctx.createLinearGradient(0, y - band, 0, y);
-    grad.addColorStop(0, 'transparent');
-    grad.addColorStop(1, FRAME_GLOW);
-    ctx.fillStyle = grad;
-    ctx.fillRect(r.left, y - band, r.width, band);
-
-    ctx.globalAlpha = o.alpha * fade;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(r.left, y);
-    ctx.lineTo(r.left + r.width, y);
-    ctx.stroke();
-    ctx.globalAlpha = o.alpha;
+  /* ── caja ── */
+  const svg = svgEl('svg', 'swarm-frame__svg', root);
+  const ghost = svgEl('rect', 'swarm-frame__ghost', svg);
+  const inks: SVGRectElement[] = [];
+  for (let i = 0; i < MAX_HEADS; i++) {
+    const ink = svgEl('rect', 'swarm-frame__ink', svg);
+    // pathLength=1 hace que el largo de los trazos se lea como fracción del borde completo.
+    ink.setAttribute('pathLength', '1');
+    inks.push(ink);
   }
 
-  // 4. Resize handles, once the border has closed.
-  const handleAlpha = smoothstep(0.8, 1, o.inked);
-  if (handleAlpha > 0) {
-    ctx.globalAlpha = o.alpha * handleAlpha;
-    ctx.fillStyle = FRAME_INK;
-    ctx.lineWidth = 1.2;
-    const xs = [r.left, r.left + r.width];
-    const ys = [r.top, r.top + r.height];
-    if (r.width > 140) xs.push(r.left + r.width / 2);
-    if (r.height > 90) ys.push(r.top + r.height / 2);
-    for (const hx of xs) {
-      for (const hy of ys) {
-        // skip the centre of the box — handles live on the border only
-        if (hx !== r.left && hx !== r.left + r.width && hy !== r.top && hy !== r.top + r.height) continue;
-        ctx.fillRect(hx - 3, hy - 3, 6, 6);
-        ctx.strokeRect(hx - 3, hy - 3, 6, 6);
+  const clip = el('div', 'swarm-frame__clip', root);
+  const scanEl = el('div', 'swarm-frame__scan', clip);
+
+  // Esquinas + puntos medios de los bordes (los medios solo si la caja es lo bastante grande).
+  const handleDefs: [string, string, 'x' | 'y' | null][] = [
+    ['0', '0', null],
+    ['100%', '0', null],
+    ['0', '100%', null],
+    ['100%', '100%', null],
+    ['50%', '0', 'x'],
+    ['50%', '100%', 'x'],
+    ['0', '50%', 'y'],
+    ['100%', '50%', 'y'],
+  ];
+  const handles = handleDefs.map(([left, top, mid]) => {
+    const node = el('i', 'swarm-frame__h', root);
+    node.style.left = left;
+    node.style.top = top;
+    return { node, mid };
+  });
+
+  const tag = el('span', 'swarm-frame__tag', root);
+  tag.style.display = 'none'; // vacía hasta que el borde empiece a cerrarse: una etiqueta vacía se ve como un bloque cian suelto
+
+  return {
+    update(rect, s) {
+      const x = Math.round(rect.left * 10) / 10;
+      const y = Math.round(rect.top * 10) / 10;
+      if (x !== lx || y !== ly) {
+        root.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        // Una etiqueta sobre la caja sobresaldría por arriba de la página: se coloca dentro.
+        root.classList.toggle('swarm-frame--inside', y < 20);
+        lx = x;
+        ly = y;
       }
-    }
-    ctx.globalAlpha = o.alpha;
-  }
 
-  // 5. Size tag — the pixel dimensions count up as the border closes.
-  if (o.inked > 0.02) {
-    const w = Math.round((r.width + 1) * o.inked);
-    const h = Math.round((r.height + 1) * o.inked);
-    const text = `${o.label ? `${o.label} · ` : ''}${w}×${h}`;
-    ctx.font = FRAME_FONT;
-    const padX = 6;
-    const chipH = 16;
-    const chipW = Math.ceil(ctx.measureText(text).width) + padX * 2;
-    let cx = r.left;
-    let cy = r.top - chipH - 2;
-    if (cy < 2) {
-      cx = r.left + 4;
-      cy = r.top + 4;
-    }
-    ctx.fillStyle = FRAME_COLOR;
-    ctx.fillRect(cx, cy, chipW, chipH);
-    ctx.fillStyle = FRAME_INK;
-    ctx.textBaseline = 'middle';
-    ctx.fillText(text, cx + padX, cy + chipH / 2 + 0.5);
-  }
+      const w = Math.round(rect.width);
+      const h = Math.round(rect.height);
+      if (w !== lw || h !== lh) {
+        root.style.width = `${w}px`;
+        root.style.height = `${h}px`;
+        svg.setAttribute('width', String(w));
+        svg.setAttribute('height', String(h));
+        for (const r of [ghost, ...inks]) {
+          r.setAttribute('x', '0.5');
+          r.setAttribute('y', '0.5');
+          r.setAttribute('width', String(Math.max(1, w - 1)));
+          r.setAttribute('height', String(Math.max(1, h - 1)));
+        }
+        for (const hd of handles) {
+          const show = hd.mid === null || (hd.mid === 'x' ? w > 140 : h > 90);
+          hd.node.style.display = show ? '' : 'none';
+        }
+        lw = w;
+        lh = h;
+      }
+
+      const alpha = Math.round(s.alpha * 100) / 100;
+      if (alpha !== lAlpha) {
+        root.style.opacity = String(alpha);
+        lAlpha = alpha;
+      }
+
+      const heads = Math.max(1, Math.min(MAX_HEADS, s.heads));
+      for (let i = 0; i < MAX_HEADS; i++) {
+        const dash = i < heads ? `${(s.inked / heads).toFixed(4)} 1` : '0 1';
+        const offset = i < heads ? String(-(i / heads)) : '0';
+        const key = `${dash}|${offset}`;
+        if (lInk[i] !== key) {
+          inks[i].style.strokeDasharray = dash;
+          inks[i].style.strokeDashoffset = offset;
+          lInk[i] = key;
+        }
+      }
+
+      const handle = Math.round(smoothstep(0.8, 1, s.inked) * 100) / 100;
+      if (handle !== lHandle) {
+        root.style.setProperty('--swarm-h', String(handle));
+        lHandle = handle;
+      }
+
+      // El tamaño en píxeles va subiendo a medida que el borde se cierra.
+      const text = s.inked > 0.02 ? `${s.label ? `${s.label} · ` : ''}${Math.round(w * s.inked)}×${Math.round(h * s.inked)}` : '';
+      if (text !== lText) {
+        tag.textContent = text;
+        tag.style.display = text ? '' : 'none';
+        lText = text;
+      }
+
+      const scan = s.scan !== null && s.scan > 0 && s.scan < 1 ? Math.round(s.scan * 500) / 500 : -1;
+      if (scan !== lScan) {
+        if (scan < 0) {
+          scanEl.style.opacity = '0';
+        } else {
+          scanEl.style.opacity = String(1 - scan ** 3);
+          scanEl.style.transform = `translateY(${(h * scan - SCAN_BAND).toFixed(1)}px)`;
+        }
+        lScan = scan;
+      }
+    },
+    remove() {
+      root.remove();
+    },
+  };
 }

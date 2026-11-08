@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { enableSwarm } from './components/swarm/enable'
 
-// Must run before the first paint so not-yet-built components never flash.
+// Debe ejecutarse antes del primer pintado para que los componentes aún sin construir no parpadeen.
 enableSwarm()
 
 createRoot(document.getElementById('root')!).render(

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
+import { EntranceGroup, EntranceItem } from '@/components/swarm/entrance';
 import { Eyebrow } from '@/components/dossier/eyebrow';
 import { GlitchHeading } from '@/components/dossier/glitch-heading';
 import { ParticleField } from '@/components/dossier/particle-field';
@@ -34,27 +35,31 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* No motion entrance here: the swarm builds these blocks, and a transformed
-          ancestor would skew the box it measures (and widen the page on mobile). */}
-      <div className="relative z-10 flex flex-col-reverse items-start gap-10 md:flex-row md:items-center md:justify-between">
+      <EntranceGroup className="relative z-10 flex flex-col-reverse items-start gap-10 md:flex-row md:items-center md:justify-between">
         <div data-build="PRESENTACIÓN" className="flex max-w-2xl flex-col gap-6">
-          <div>
+          <EntranceItem>
             <Eyebrow n={1} label="ORIGEN" />
-          </div>
+          </EntranceItem>
 
-          <div>
+          <EntranceItem>
             <GlitchHeading lines={nameLines} />
-          </div>
+          </EntranceItem>
 
-          <p className="font-mono text-[clamp(0.8rem,1.4vw,1rem)] uppercase tracking-[0.08em] text-muted-foreground">
+          <EntranceItem
+            as="p"
+            className="font-mono text-[clamp(0.8rem,1.4vw,1rem)] uppercase tracking-[0.08em] text-muted-foreground"
+          >
             {data.title}
-          </p>
+          </EntranceItem>
 
-          <p className="max-w-[46ch] font-mono text-[clamp(1.05rem,2vw,1.3rem)] leading-relaxed text-foreground">
+          <EntranceItem
+            as="p"
+            className="max-w-[46ch] font-mono text-[clamp(1.05rem,2vw,1.3rem)] leading-relaxed text-foreground"
+          >
             {data.heroPhrase}
-          </p>
+          </EntranceItem>
 
-          <div className="flex flex-wrap gap-3 pt-2">
+          <EntranceItem className="flex flex-wrap gap-3 pt-2">
             <Button
               asChild
               className="animate-pulse-ring bg-primary font-mono text-xs uppercase tracking-[0.1em] text-primary-foreground hover:bg-accent"
@@ -64,21 +69,25 @@ export function Hero() {
             <Button variant="outline" asChild className="font-mono text-xs uppercase tracking-[0.1em]">
               <a href="#contacto">Contactarme</a>
             </Button>
-          </div>
+          </EntranceItem>
         </div>
 
-        <div data-build="RETRATO" className="relative shrink-0">
-          <div className="absolute -inset-3 border border-border" aria-hidden="true" />
-          <img
-            src={perfilImg}
-            alt={data.fullName}
-            className="relative size-40 border border-border object-cover object-top md:size-52"
-          />
-          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap border border-border bg-background px-2 py-1 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-faint">
-            SUJETO 001
+        {/* Nodo interno simple: el cardumen mide esta caja y, cuando la animación de entrada
+            original está activa, la transformación del contenedor externo la deformaría. */}
+        <EntranceItem className="relative shrink-0">
+          <div data-build="RETRATO" className="relative">
+            <div className="absolute -inset-3 border border-border" aria-hidden="true" />
+            <img
+              src={perfilImg}
+              alt={data.fullName}
+              className="relative size-40 border border-border object-cover object-top md:size-52"
+            />
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap border border-border bg-background px-2 py-1 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-faint">
+              SUJETO 001
+            </div>
           </div>
-        </div>
-      </div>
+        </EntranceItem>
+      </EntranceGroup>
 
       <div
         data-build="INDICADOR"

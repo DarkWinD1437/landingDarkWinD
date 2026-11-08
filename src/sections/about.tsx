@@ -4,10 +4,11 @@ import { useTypewriter } from '@/hooks/use-typewriter';
 import { data } from '@/data/data';
 
 /**
- * Lives in its own component so the per-character state updates re-render only
- * this paragraph — not the whole section and every animated word below it.
- * The not-yet-typed remainder stays in the layout (invisible), so the box is
- * its final size from the start: no reflow each time a line wraps.
+ * Vive en su propio componente para que las actualizaciones de estado por
+ * carácter re-rendericen solo este párrafo, y no toda la sección ni cada palabra
+ * animada de abajo. El resto aún sin escribir permanece en el layout (invisible),
+ * así la caja tiene su tamaño final desde el inicio: sin reflujo cada vez que
+ * se envuelve una línea.
  */
 function TypewriterParagraph({ text }: { text: string }) {
   const { ref, display } = useTypewriter<HTMLParagraphElement>(text);

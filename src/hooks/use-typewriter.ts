@@ -12,7 +12,7 @@ export function useTypewriter<T extends HTMLElement = HTMLElement>(
 ) {
   const ref = useRef<T>(null);
   const isInView = useInView(ref, { once: true, amount: 0.4 });
-  // Don't type while the swarm hasn't built this paragraph yet — nobody would see it.
+  // No escribir mientras el cardumen no haya construido este párrafo: nadie lo vería.
   const released = useBuildReleased(ref);
   const [typed, setTyped] = useState(0);
 

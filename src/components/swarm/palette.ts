@@ -1,15 +1,16 @@
 /**
- * Colours mirror the dossier tokens in `index.css` (cyan accent, coral primary,
- * near-white foreground, dark surface). Canvas parses `oklch()` natively in
- * every current browser, so no hex translation is needed.
+ * Los colores reflejan los tokens del dossier en `index.css` (acento cian, primario
+ * coral, primer plano casi blanco, superficie oscura). El canvas interpreta
+ * `oklch()` de forma nativa en todos los navegadores actuales, así que no hace
+ * falta traducirlos a hex.
  */
 export interface SchoolStyle {
-  /** Fill colour of the cursor arrows in this school. */
+  /** Color de relleno de las flechas de este cardumen. */
   color: string;
   glow: string;
-  /** Cursors in the school on desktop (mobile gets ~60%). */
+  /** Cursores del cardumen en escritorio (en móvil, ~60%). */
   count: number;
-  /** Size relative to the base arrow. */
+  /** Tamaño relativo a la flecha base. */
   scale: number;
 }
 
@@ -19,8 +20,5 @@ export const SCHOOL_STYLES: readonly SchoolStyle[] = [
   { color: 'oklch(0.96 0.01 262)', glow: 'oklch(0.96 0.01 262 / 0.45)', count: 9, scale: 1.2 },
 ];
 
-export const FRAME_COLOR = 'oklch(0.76 0.14 200)';
-export const FRAME_DIM = 'oklch(0.76 0.14 200 / 0.38)';
-export const FRAME_GLOW = 'oklch(0.76 0.14 200 / 0.16)';
+/** Tinta oscura del contorno del cursor (los colores del marco están en dossier.css). */
 export const FRAME_INK = 'oklch(0.13 0.012 262)';
-export const FRAME_FONT = '600 10px "JetBrains Mono", ui-monospace, monospace';

@@ -1,4 +1,5 @@
 import { Eyebrow } from '@/components/dossier/eyebrow';
+import { EntranceGroup, EntranceItem } from '@/components/swarm/entrance';
 import { useCardTilt } from '@/hooks/use-card-tilt';
 import { useLatestRelease } from '@/hooks/use-latest-release';
 import { data } from '@/data/data';
@@ -63,11 +64,13 @@ export function Projects() {
         </p>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+      <EntranceGroup className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
         {data.projects.map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
+          <EntranceItem key={project.id} variants="z" className="h-full">
+            <ProjectCard project={project} index={index} />
+          </EntranceItem>
         ))}
-      </div>
+      </EntranceGroup>
     </section>
   );
 }

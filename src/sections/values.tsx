@@ -1,4 +1,5 @@
 import { Eyebrow } from '@/components/dossier/eyebrow';
+import { EntranceGroup, EntranceItem } from '@/components/swarm/entrance';
 import { useCardTilt } from '@/hooks/use-card-tilt';
 import { data } from '@/data/data';
 import { LayoutIcon, ServerIcon, DatabaseIcon, ContainerIcon, type LucideIcon } from 'lucide-react';
@@ -61,11 +62,13 @@ export function Values() {
         </p>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <EntranceGroup className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
         {data.skills.map((skill, index) => (
-          <SkillCard key={skill.id} skill={skill} index={index} />
+          <EntranceItem key={skill.id} variants="right" className="h-full">
+            <SkillCard skill={skill} index={index} />
+          </EntranceItem>
         ))}
-      </div>
+      </EntranceGroup>
     </section>
   );
 }

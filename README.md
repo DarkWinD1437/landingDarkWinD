@@ -1,3 +1,30 @@
+# Landing — DarkWinD
+
+## Cardumen de cursores (activar / desactivar)
+
+Al entrar, tres cardúmenes de cursores de mouse nadan por la pantalla y **construyen cada componente** de la landing mientras se hace scroll (cada uno con su borde y su tamaño en píxeles). Al terminar, nadan unos segundos y salen de la pantalla.
+
+**Interruptor principal:** `SWARM_ENABLED` en [`src/components/swarm/config.ts`](src/components/swarm/config.ts).
+
+| Valor | Resultado |
+| --- | --- |
+| `true` | Los cursores construyen la página. |
+| `false` | La página se muestra normal e inmediatamente, con las animaciones de entrada originales (tarjetas que se deslizan o hacen zoom). |
+
+Se puede sobrescribir **sin tocar el código** (de mayor a menor prioridad):
+
+1. **URL:** `https://tu-sitio/?swarm=off` (o `=on`), útil para probar.
+2. **Variable de entorno:** `VITE_SWARM=off` (o `on`), por despliegue (p. ej. en Netlify).
+3. **La constante** `SWARM_ENABLED`.
+
+Valores aceptados: `on`/`off`, `true`/`false`, `1`/`0`, `yes`/`no`. Con *reducir movimiento* activado en el sistema, el cardumen no corre nunca.
+
+Con el cardumen apagado se conservan las correcciones de rendimiento y de móvil (typewriter aislado, componentes `motion` cacheados, sin desbordamiento horizontal ni "zoom out" en celulares).
+
+Para marcar un componente nuevo como "construible" basta con añadirle `data-build="ETIQUETA"`; la etiqueta es el nombre que aparece junto al tamaño en su borde.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

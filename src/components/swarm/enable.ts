@@ -1,11 +1,15 @@
+import { swarmActive } from './config';
+
 /**
- * The swarm hides every `[data-build]` component until the mice build it, so
- * the switch has to be flipped *before* React paints — otherwise the finished
- * page would flash for a frame and then vanish. `main.tsx` calls
- * `enableSwarm()` ahead of `createRoot`.
+ * El cardumen oculta cada componente `[data-build]` hasta que los cursores lo
+ * construyen, así que el interruptor hay que accionarlo *antes* de que React
+ * pinte; si no, la página terminada parpadearía un frame y luego desaparecería.
+ * `main.tsx` llama a `enableSwarm()` antes de `createRoot`.
  *
- * Users who ask for reduced motion never get the class, so the page simply
- * renders in full and `<MouseSwarm />` renders nothing.
+ * Si corre o no se decide en `config.ts` (interruptor principal, sobrescritura
+ * por URL/variable de entorno, reducir movimiento). Cuando no corre, la clase
+ * nunca se agrega: la página se renderiza completa y `<MouseSwarm />` no
+ * renderiza nada.
  */
 export const SWARM_CLASS = 'swarm-on';
 
@@ -14,6 +18,6 @@ export function isSwarmEnabled(): boolean {
 }
 
 export function enableSwarm(): void {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!swarmActive()) return;
   document.documentElement.classList.add(SWARM_CLASS);
 }

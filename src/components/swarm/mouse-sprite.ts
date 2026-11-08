@@ -1,14 +1,14 @@
 import { FRAME_INK } from './palette';
 
 /**
- * The on-screen mouse pointer (the classic arrow cursor) as a "fish": the tip
- * leads, the notched tail trails behind, and the whole body sways as it swims.
+ * El puntero del mouse en pantalla (la flecha clásica) convertido en "pez": la
+ * punta va adelante, la cola con muesca queda atrás y todo el cuerpo ondula al nadar.
  *
- * Each school's arrow is rasterised once into a sprite (cheap `drawImage` per
- * frame, glow included); only the sway is animated live.
+ * La flecha de cada cardumen se rasteriza una sola vez en un sprite (un
+ * `drawImage` barato por frame, brillo incluido); solo el vaivén se anima en vivo.
  */
 
-/** Classic arrow, tip at the origin, drawn pointing up-left like the OS cursor. */
+/** Flecha clásica, con la punta en el origen y apuntando arriba-izquierda como el cursor del sistema. */
 const ARROW: readonly (readonly [number, number])[] = [
   [0, 0],
   [0, 17],
@@ -19,18 +19,19 @@ const ARROW: readonly (readonly [number, number])[] = [
   [12, 12],
 ];
 
-/** Visual centre of the arrow, so it rotates about its middle. */
+/** Centro visual de la flecha, para que gire sobre su punto medio. */
 const CENTRE_X = 4.6;
 const CENTRE_Y = 10.2;
 
 /**
- * Rotation that turns "tip up-left" into "tip along +x". The tip points opposite
- * to the tip→centre vector, so rotating that vector onto -x does the job.
+ * Rotación que convierte "punta arriba-izquierda" en "punta hacia +x". La punta
+ * apunta en sentido contrario al vector punta→centro, así que girar ese vector
+ * hasta -x lo logra.
  */
 const POINT_RIGHT = Math.PI - Math.atan2(CENTRE_Y, CENTRE_X);
 
 const PAD = 8;
-const EXTENT = 26; // generous square that fits the arrow at any rotation
+const EXTENT = 26; // cuadrado holgado donde cabe la flecha con cualquier rotación
 
 export interface MouseSprite {
   canvas: HTMLCanvasElement;
@@ -49,7 +50,7 @@ export function createSprite(fill: string, glow: string, density: number): Mouse
   if (!g) return { canvas, width, height };
 
   g.scale(density, density);
-  g.translate(width / 2, height / 2); // origin = arrow centre, +x = swimming direction
+  g.translate(width / 2, height / 2); // origen = centro de la flecha, +x = dirección de nado
   g.rotate(POINT_RIGHT);
   g.translate(-CENTRE_X, -CENTRE_Y);
 
@@ -80,7 +81,7 @@ export interface MouseDrawState {
 }
 
 export function drawMouse(ctx: CanvasRenderingContext2D, m: MouseDrawState, sprite: MouseSprite) {
-  // Fish-like sway: the faster it swims, the wider the wag.
+  // Vaivén de pez: cuanto más rápido nada, más amplio el movimiento.
   const sway = Math.sin(m.phase) * (0.1 + Math.min(m.speed, 500) * 0.0004);
 
   ctx.save();

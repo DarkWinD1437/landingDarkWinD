@@ -10,7 +10,7 @@ import {
 import { ANIMATION_VARIANTS, type AnimationT } from '../utils/animation-variants';
 interface WordProps extends React.HTMLAttributes<HTMLSpanElement> {
   animation?: AnimationT;
-  /** `char` animates every letter, `word` animates whole words (≈6× fewer nodes). */
+  /** `char` anima cada letra, `word` anima palabras completas (≈6× menos nodos). */
   split?: 'char' | 'word';
 }
 
@@ -38,12 +38,12 @@ export function WordStagger({
   );
 }
 
-// Wrapper components are created once, at module scope. `motion.create()` returns
-// a brand-new component type on every call, so calling it during render made
-// React unmount and remount the entire animated subtree on *every* re-render.
+// Los componentes envoltorio se crean una sola vez, a nivel de módulo. `motion.create()`
+// devuelve un tipo de componente nuevo en cada llamada, así que invocarlo durante el render
+// hacía que React desmontara y remontara todo el subárbol animado en *cada* re-render.
 type MotionTag = 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4';
 
-// Typed through `span` props: the tags only differ in their DOM element type.
+// Se tipa con las props de `span`: las etiquetas solo difieren en el tipo de elemento DOM.
 const MOTION_TAGS = {
   span: motion.span,
   p: motion.p,

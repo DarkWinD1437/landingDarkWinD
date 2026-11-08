@@ -3,9 +3,10 @@ import { isSwarmEnabled } from './enable';
 import { releaseContent, startSwarm } from './swarm-engine';
 
 /**
- * Full-viewport overlay where schools of mouse-pointer arrows swim like fish, build every
- * `[data-build]` component as the page is scrolled, and leave once the whole
- * landing exists. Renders nothing when motion is reduced.
+ * Capa a pantalla completa donde cardúmenes de flechas de mouse nadan como peces,
+ * construyen cada componente `[data-build]` a medida que se hace scroll y se van
+ * cuando toda la landing ya existe. No renderiza nada si el interruptor está
+ * apagado (ver `config.ts`) o si el usuario pidió reducir el movimiento.
  */
 export function MouseSwarm() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -17,8 +18,8 @@ export function MouseSwarm() {
     try {
       return startSwarm(canvas, () => setActive(false));
     } catch (error) {
-      // Never leave the page invisible because the effect failed.
-      console.error('MouseSwarm failed, showing the page without it.', error);
+      // Nunca dejar la página invisible porque el efecto falló.
+      console.error('El cardumen falló; se muestra la página sin él.', error);
       releaseContent();
     }
   }, [active]);
@@ -28,7 +29,7 @@ export function MouseSwarm() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-110 h-full w-full"
+      className="swarm-canvas"
       aria-hidden="true"
     />
   );

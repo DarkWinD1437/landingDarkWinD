@@ -60,15 +60,151 @@
   color: oklch(0.13 0.012 262);
 }
 
-/* ── Mouse swarm ───────────────────────────────────────────────────────────
- * While `html.swarm-on` is set, every [data-build] component stays invisible
- * (but keeps its layout space) until the swarm picks it up. The engine then
- * drives its opacity + clip-path inline while it is being built, and flips it
- * to data-build-state="done", which drops every override.
+/* ── Cardumen de cursores ──────────────────────────────────────────────────
+ * Mientras `html.swarm-on` esté puesta, cada componente [data-build] permanece
+ * invisible (pero conserva su espacio en el layout) hasta que el cardumen lo
+ * toma. Entonces el motor maneja su opacity + clip-path en línea mientras se
+ * construye y lo pasa a data-build-state="done", lo que elimina todo override.
  *
- * `visibility: hidden` also keeps not-yet-built links out of the tab order.
- * Users with reduced motion never get `swarm-on`, so nothing here applies.   */
+ * `visibility: hidden` también deja fuera del orden de tabulación a los enlaces
+ * aún sin construir. Con el interruptor apagado o con "reducir movimiento"
+ * nunca se pone `swarm-on`, así que nada de esto aplica.                      */
 html.swarm-on [data-build]:not([data-build-state]),
 html.swarm-on [data-build][data-build-state='idle'] {
   visibility: hidden;
+}
+
+/* ── Cardumen de cursores: canvas + marcos de construcción ─────────────────
+ * El canvas mide lo mismo que el viewport *grande* (100lvh), así la barra de URL
+ * del móvil al colapsar nunca lo redimensiona (redimensionar borra el bitmap y
+ * estira los cursores). `height: 100%` es el respaldo para navegadores sin lvh. */
+.swarm-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: 100lvh;
+  z-index: 110;
+  pointer-events: none;
+}
+
+/* Los marcos son DOM real, así que se desplazan con la página en el compositor y
+ * quedan pegados a su componente (un canvas repintado desde JS se atrasa y vibra
+ * con el scroll táctil). Una capa viaja con el documento y otra está fija a la
+ * pantalla para los componentes sticky, como el header.                       */
+.swarm-frames {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 109;
+  pointer-events: none;
+  overflow-x: clip; /* los tiradores que sobresalen 3px de una caja de ancho completo no deben ensanchar la página */
+  --swarm-c: oklch(0.76 0.14 200);
+  --swarm-ink: oklch(0.13 0.012 262);
+}
+.swarm-frames--screen {
+  position: fixed;
+  height: 100%;
+  overflow: hidden;
+}
+
+.swarm-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  --swarm-h: 0;
+}
+.swarm-frame__svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+.swarm-frame__ghost {
+  fill: none;
+  stroke: oklch(0.76 0.14 200 / 0.38);
+  stroke-width: 1;
+  stroke-dasharray: 4 5;
+}
+.swarm-frame__ink {
+  fill: none;
+  stroke: var(--swarm-c);
+  stroke-width: 1.5;
+}
+.swarm-frame__clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.swarm-frame__scan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 26px;
+  opacity: 0;
+  background: linear-gradient(to bottom, transparent, oklch(0.76 0.14 200 / 0.16));
+  border-bottom: 1px solid var(--swarm-c);
+  will-change: transform;
+}
+.swarm-frame__h {
+  position: absolute;
+  box-sizing: border-box;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--swarm-ink);
+  border: 1.2px solid var(--swarm-c);
+  opacity: var(--swarm-h);
+}
+.swarm-frame__tag {
+  position: absolute;
+  left: 0;
+  top: -18px;
+  height: 16px;
+  padding: 0 6px;
+  font: 600 10px/16px 'JetBrains Mono', ui-monospace, monospace;
+  white-space: nowrap;
+  color: var(--swarm-ink);
+  background: var(--swarm-c);
+}
+.swarm-frame--inside .swarm-frame__tag {
+  top: 4px;
+  left: 4px;
+}
+
+/* variante para divisores */
+.swarm-frame__line-ghost,
+.swarm-frame__line-ink {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+}
+.swarm-frame__line-ghost {
+  border-top: 1px dashed oklch(0.76 0.14 200 / 0.38);
+}
+.swarm-frame__line-ink {
+  height: 1.5px;
+  margin-top: -0.5px;
+  background: var(--swarm-c);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.swarm-frame__tick {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 10px;
+  margin-top: -5px;
+  background: var(--swarm-c);
+}
+.swarm-frame__tick--l {
+  left: 0;
+}
+.swarm-frame__tick--r {
+  right: 0;
 }

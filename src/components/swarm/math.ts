@@ -12,10 +12,10 @@ export function smoothstep(edge0: number, edge1: number, v: number) {
   return t * t * (3 - 2 * t);
 }
 
-/** 0 → 1 → 0 ping-pong over each unit of `t`. */
+/** Va y viene 0 → 1 → 0 en cada unidad de `t`. */
 export const triangle = (t: number) => Math.abs(2 * (t - Math.floor(t)) - 1);
 
-/** Shortest signed distance between two angles, in (-π, π]. */
+/** Menor diferencia con signo entre dos ángulos, en (-π, π]. */
 export function wrapAngle(a: number) {
   const TAU = Math.PI * 2;
   return a - TAU * Math.round(a / TAU);

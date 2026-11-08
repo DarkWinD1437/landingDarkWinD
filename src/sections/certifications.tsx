@@ -1,4 +1,5 @@
 import { Eyebrow } from '@/components/dossier/eyebrow';
+import { EntranceGroup, EntranceItem } from '@/components/swarm/entrance';
 import { useCardTilt } from '@/hooks/use-card-tilt';
 import { data } from '@/data/data';
 import { BadgeCheckIcon, ExternalLinkIcon } from 'lucide-react';
@@ -65,11 +66,13 @@ export function Certifications() {
         </p>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+      <EntranceGroup className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
         {data.certifications.map((cert, index) => (
-          <CertificationCard key={cert.id} cert={cert} index={index} />
+          <EntranceItem key={cert.id} variants="z" className="h-full">
+            <CertificationCard cert={cert} index={index} />
+          </EntranceItem>
         ))}
-      </div>
+      </EntranceGroup>
     </section>
   );
 }

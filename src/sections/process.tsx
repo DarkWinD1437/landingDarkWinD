@@ -23,7 +23,7 @@ export function Process() {
           </ScrollAnimation>
         </div>
 
-        {/* The top rule lives on the first row (not the list) so it appears with it, not before. */}
+        {/* La línea superior va en la primera fila (no en la lista) para que aparezca junto con ella y no antes. */}
         <div className="mt-12 flex flex-col md:mt-0">
           {data.experience.map((exp, index) => (
             <div

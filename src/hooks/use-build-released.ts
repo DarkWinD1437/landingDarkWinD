@@ -9,9 +9,10 @@ function isReleased(el: HTMLElement) {
 }
 
 /**
- * `true` once the mouse swarm has started building this element (or right away
- * when there is no swarm). Lets time-based effects — like the typewriter — wait
- * for the component to actually become visible instead of playing out unseen.
+ * `true` cuando el cardumen ya empezó a construir este elemento (o de inmediato
+ * si no hay cardumen). Permite que los efectos basados en tiempo, como el
+ * typewriter, esperen a que el componente sea realmente visible en vez de
+ * reproducirse sin que nadie los vea.
  */
 export function useBuildReleased(ref: RefObject<HTMLElement | null>) {
   const [released, setReleased] = useState(false);
@@ -21,8 +22,8 @@ export function useBuildReleased(ref: RefObject<HTMLElement | null>) {
     if (!el) return;
 
     let observer: MutationObserver | undefined;
-    // Deferred a frame: lets the engine mark the element `idle` first, and keeps
-    // state updates out of the effect body.
+    // Se difiere un frame: deja que el motor marque primero el elemento como `idle`
+    // y evita actualizar estado dentro del cuerpo del efecto.
     const id = requestAnimationFrame(() => {
       if (isReleased(el)) {
         setReleased(true);
