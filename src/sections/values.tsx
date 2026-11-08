@@ -1,10 +1,7 @@
-import { ContainerStagger } from '@/components/systaliko-ui/blocks/container-stagger';
 import { Eyebrow } from '@/components/dossier/eyebrow';
-import { ANIMATION_VARIANTS } from '@/components/systaliko-ui/utils/animation-variants';
 import { useCardTilt } from '@/hooks/use-card-tilt';
 import { data } from '@/data/data';
 import { LayoutIcon, ServerIcon, DatabaseIcon, ContainerIcon, type LucideIcon } from 'lucide-react';
-import { motion, MotionConfig } from 'motion/react';
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   'Frontend': LayoutIcon,
@@ -22,6 +19,7 @@ function SkillCard({ skill, index }: { skill: (typeof data.skills)[number]; inde
       ref={ref}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
+      data-build="TARJETA"
       className="flex h-full flex-col gap-4 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
       style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
     >
@@ -51,26 +49,23 @@ function SkillCard({ skill, index }: { skill: (typeof data.skills)[number]; inde
 }
 
 export function Values() {
-  const variants = ANIMATION_VARIANTS['right'];
   return (
     <section id="habilidades" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
-      <Eyebrow n={3} label="EL ARSENAL" />
-      <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
-        Stack técnico
-      </h2>
-      <p className="mt-4 max-w-[52ch] font-mono text-muted-foreground">
-        Tecnologías y herramientas que uso para construir soluciones completas.
-      </p>
+      <div data-build="ENCABEZADO" className="w-fit max-w-full">
+        <Eyebrow n={3} label="EL ARSENAL" />
+        <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
+          Stack técnico
+        </h2>
+        <p className="mt-4 max-w-[52ch] font-mono text-muted-foreground">
+          Tecnologías y herramientas que uso para construir soluciones completas.
+        </p>
+      </div>
 
-      <ContainerStagger className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <MotionConfig transition={{ duration: 0.4, ease: 'easeOut' }}>
-          {data.skills.map((skill, index) => (
-            <motion.div key={skill.id} variants={variants} className="h-full">
-              <SkillCard skill={skill} index={index} />
-            </motion.div>
-          ))}
-        </MotionConfig>
-      </ContainerStagger>
+      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {data.skills.map((skill, index) => (
+          <SkillCard key={skill.id} skill={skill} index={index} />
+        ))}
+      </div>
     </section>
   );
 }

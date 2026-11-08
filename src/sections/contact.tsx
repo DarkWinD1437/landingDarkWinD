@@ -99,13 +99,8 @@ export function ContactFormSection() {
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="space-y-4"
-        >
+        {/* Plain node (no motion transform): the swarm measures and reveals this box. */}
+        <div data-build="ENCABEZADO" className="space-y-4">
           <Eyebrow n={8} label="CANAL ABIERTO" className="justify-center" />
           <h2 className="font-display text-3xl uppercase tracking-tight text-foreground md:text-4xl">
             Construyamos algo excepcional juntos
@@ -113,9 +108,9 @@ export function ContactFormSection() {
           <p className="max-w-2xl text-foreground/70">
             Comparte los detalles de tu proyecto y me comunicaré contigo dentro de un día hábil. Estoy aquí para colaborar y crear experiencias significativas.
           </p>
-        </motion.div>
+        </div>
 
-        <Card className="group relative w-full max-w-4xl overflow-hidden border border-border bg-background/60 p-0 backdrop-blur transition-colors hover:border-accent">
+        <Card data-build="FORMULARIO" className="group relative w-full max-w-4xl overflow-hidden border border-border bg-background/60 p-0 backdrop-blur transition-colors hover:border-accent">
           <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
           <motion.form

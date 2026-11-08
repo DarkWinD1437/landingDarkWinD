@@ -59,3 +59,16 @@
   background: oklch(0.62 0.19 26);
   color: oklch(0.13 0.012 262);
 }
+
+/* ── Mouse swarm ───────────────────────────────────────────────────────────
+ * While `html.swarm-on` is set, every [data-build] component stays invisible
+ * (but keeps its layout space) until the swarm picks it up. The engine then
+ * drives its opacity + clip-path inline while it is being built, and flips it
+ * to data-build-state="done", which drops every override.
+ *
+ * `visibility: hidden` also keeps not-yet-built links out of the tab order.
+ * Users with reduced motion never get `swarm-on`, so nothing here applies.   */
+html.swarm-on [data-build]:not([data-build-state]),
+html.swarm-on [data-build][data-build-state='idle'] {
+  visibility: hidden;
+}

@@ -14,17 +14,19 @@ import { CustomCursor } from './components/dossier/custom-cursor'
 import { ChapterRail } from './components/dossier/chapter-rail'
 import { SectionDivider } from './components/dossier/section-divider'
 import { BackToTop } from './components/dossier/back-to-top'
+import { MouseSwarm } from './components/swarm/mouse-swarm'
 
 function App() {
   return (
     <>
+      <MouseSwarm />
       <ScanOverlay />
       <MarqueeTicker />
       <CustomCursor />
       <ChapterRail />
       <BackToTop />
 
-      <div className="relative z-10">
+      <div className="relative z-10 overflow-x-clip">
         <Header />
         <main>
           <Hero />

@@ -10,35 +10,56 @@ import {
 import { ANIMATION_VARIANTS, type AnimationT } from '../utils/animation-variants';
 interface WordProps extends React.HTMLAttributes<HTMLSpanElement> {
   animation?: AnimationT;
+  /** `char` animates every letter, `word` animates whole words (≈6× fewer nodes). */
+  split?: 'char' | 'word';
 }
 
 export function WordStagger({
   children,
   animation = 'default',
+  split = 'char',
   ...props
 }: WordProps) {
-  const characters = String(children).split('');
+  const text = String(children);
   const animationVariants = ANIMATION_VARIANTS[animation];
+  const pieces = split === 'word' ? [text] : text.split('');
   return (
     <span className="inline-block text-nowrap" {...props}>
-      {characters.map((char, index) => (
+      {pieces.map((piece, index) => (
         <motion.span
           className="inline-block"
           variants={animationVariants}
-          key={`${char}-${index}`}
+          key={`${piece}-${index}`}
         >
-          {char}
+          {piece}
         </motion.span>
       ))}
     </span>
   );
 }
 
+// Wrapper components are created once, at module scope. `motion.create()` returns
+// a brand-new component type on every call, so calling it during render made
+// React unmount and remount the entire animated subtree on *every* re-render.
+type MotionTag = 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4';
+
+// Typed through `span` props: the tags only differ in their DOM element type.
+const MOTION_TAGS = {
+  span: motion.span,
+  p: motion.p,
+  div: motion.div,
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+  h4: motion.h4,
+} as unknown as Record<MotionTag, React.ComponentType<HTMLMotionProps<'span'>>>;
+
 interface TextStaggerProps extends HTMLMotionProps<'span'> {
   staggerValue?: number;
   staggerStart?: StaggerOrigin;
   animation?: AnimationT;
-  as?: React.ElementType;
+  split?: 'char' | 'word';
+  as?: MotionTag;
 }
 
 export function TextStaggerInview({
@@ -49,11 +70,12 @@ export function TextStaggerInview({
   staggerValue = 0.02,
   staggerStart = 'first',
   animation,
-  as: Component = 'span',
+  split,
+  as = 'span',
   ...props
 }: TextStaggerProps) {
   const words = String(children).split(' ');
-  const MotionComponent = motion.create(Component);
+  const MotionComponent = MOTION_TAGS[as];
   return (
     <MotionComponent
       initial="hidden"
@@ -73,7 +95,9 @@ export function TextStaggerInview({
       >
         {words.map((word, index) => (
           <React.Fragment key={`${word}-${index}`}>
-            <WordStagger animation={animation}>{word}</WordStagger>
+            <WordStagger animation={animation} split={split}>
+              {word}
+            </WordStagger>
             {index < words.length - 1 && ' '}
           </React.Fragment>
         ))}

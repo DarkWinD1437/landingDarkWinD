@@ -1,10 +1,7 @@
-import { ContainerStagger } from '@/components/systaliko-ui/blocks/container-stagger';
-import { ANIMATION_VARIANTS } from '@/components/systaliko-ui/utils/animation-variants';
 import { Eyebrow } from '@/components/dossier/eyebrow';
 import { useCardTilt } from '@/hooks/use-card-tilt';
 import { useLatestRelease } from '@/hooks/use-latest-release';
 import { data } from '@/data/data';
-import { motion, MotionConfig } from 'motion/react';
 import { TerminalIcon, ExternalLinkIcon } from 'lucide-react';
 
 function ProjectCard({ project, index }: { project: (typeof data.projects)[number]; index: number }) {
@@ -19,6 +16,7 @@ function ProjectCard({ project, index }: { project: (typeof data.projects)[numbe
       rel="noopener noreferrer"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
+      data-build="PROYECTO"
       className="group flex h-full flex-col gap-4 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
       style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
     >
@@ -53,27 +51,23 @@ function ProjectCard({ project, index }: { project: (typeof data.projects)[numbe
 }
 
 export function Projects() {
-  const variants = ANIMATION_VARIANTS['z'];
-
   return (
     <section id="proyectos" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
-      <Eyebrow n={7} label="PROYECTOS" />
-      <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
-        Fuera del horario laboral
-      </h2>
-      <p className="mt-4 max-w-[52ch] font-mono text-muted-foreground">
-        Proyectos personales de código abierto, publicados y mantenidos en mi GitHub.
-      </p>
+      <div data-build="ENCABEZADO" className="w-fit max-w-full">
+        <Eyebrow n={7} label="PROYECTOS" />
+        <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
+          Fuera del horario laboral
+        </h2>
+        <p className="mt-4 max-w-[52ch] font-mono text-muted-foreground">
+          Proyectos personales de código abierto, publicados y mantenidos en mi GitHub.
+        </p>
+      </div>
 
-      <ContainerStagger className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <MotionConfig transition={{ duration: 0.4, ease: 'easeOut' }}>
-          {data.projects.map((project, index) => (
-            <motion.div key={project.id} variants={variants} className="h-full">
-              <ProjectCard project={project} index={index} />
-            </motion.div>
-          ))}
-        </MotionConfig>
-      </ContainerStagger>
+      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+        {data.projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
+      </div>
     </section>
   );
 }

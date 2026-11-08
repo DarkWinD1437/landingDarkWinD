@@ -23,7 +23,7 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
     return (
-        <footer className="border-t border-border px-8 pb-14 pt-10">
+        <footer data-build="PIE DE PÁGINA" className="border-t border-border px-8 pb-14 pt-10">
             <div className="mx-auto flex max-w-330 flex-wrap items-center justify-between gap-4">
                 <div className="inline-flex items-center gap-1.5 border border-border px-2.5 py-1.5 font-mono text-sm font-bold tracking-[0.1em]">
                     <img src={logo} alt="" className="size-4" />

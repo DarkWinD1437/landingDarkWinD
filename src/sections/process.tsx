@@ -9,7 +9,7 @@ export function Process() {
   return (
     <section id="experiencia" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
       <div className="md:grid md:grid-cols-2 md:gap-12">
-        <div className="relative h-fit py-6 md:sticky md:top-24">
+        <div data-build="ENCABEZADO" className="relative h-fit py-6 md:sticky md:top-24">
           <ScrollAnimation spacerClass="h-0" className="space-y-4 overflow-hidden md:overflow-visible">
             <Eyebrow n={4} label="LA CRÓNICA" />
             <ScrollScale inputRange={[0, 0.2]} scaleRange={[1, 1.4]} className="origin-left py-4">
@@ -23,11 +23,15 @@ export function Process() {
           </ScrollAnimation>
         </div>
 
-        <div className="mt-12 flex flex-col border-t border-border md:mt-0">
+        {/* The top rule lives on the first row (not the list) so it appears with it, not before. */}
+        <div className="mt-12 flex flex-col md:mt-0">
           {data.experience.map((exp, index) => (
             <div
               key={exp.id}
-              className="grid grid-cols-[56px_1fr] gap-5 border-b border-border py-7 sm:grid-cols-[90px_1fr]"
+              data-build="FILA"
+              className={`grid grid-cols-[56px_1fr] gap-5 border-b border-border py-7 sm:grid-cols-[90px_1fr]${
+                index === 0 ? ' border-t' : ''
+              }`}
             >
               <div className="font-display text-2xl text-faint sm:text-3xl">
                 {String(index + 1).padStart(2, '0')}

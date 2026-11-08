@@ -11,6 +11,7 @@ function EducationCard({ edu, index }: { edu: (typeof data.education)[number]; i
       ref={ref}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
+      data-build="TARJETA"
       className="flex flex-col gap-3 border border-border bg-background p-6 transition-[border-color] duration-300 hover:border-accent"
       style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
     >
@@ -29,12 +30,14 @@ export function Team() {
   return (
     <section id="educacion" className="relative z-10 mx-auto max-w-330 px-6 py-24 md:px-16">
       <ScrollAnimation spacerClass="h-0">
-        <Eyebrow n={5} label="FORMACIÓN" />
-        <ScrollScale inputRange={[0, 0.5]} scaleRange={[1.15, 1]} className="mt-3 origin-left">
-          <h2 className="font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
-            Formación académica
-          </h2>
-        </ScrollScale>
+        <div data-build="ENCABEZADO" className="w-fit max-w-full">
+          <Eyebrow n={5} label="FORMACIÓN" />
+          <ScrollScale inputRange={[0, 0.5]} scaleRange={[1.15, 1]} className="mt-3 origin-left">
+            <h2 className="font-display text-[clamp(2.1rem,5vw,3.7rem)] uppercase leading-[1.02] text-foreground">
+              Formación académica
+            </h2>
+          </ScrollScale>
+        </div>
 
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {data.education.map((edu, index) => (

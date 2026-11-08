@@ -16,6 +16,7 @@ export function Header() {
 
     return (
         <header
+            data-build="NAVEGACIÓN"
             className={cn(
                 "sticky top-0 z-100 flex w-full justify-center border-b px-8 transition-colors duration-300",
                 scrolled ? "border-border bg-background/85 backdrop-blur-md" : "border-transparent bg-transparent"
